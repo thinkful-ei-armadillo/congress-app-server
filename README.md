@@ -1,4 +1,4 @@
-# CONGRESS CLIENT
+# CONGRESS SERVER
 
 ## Deployed Links
 
