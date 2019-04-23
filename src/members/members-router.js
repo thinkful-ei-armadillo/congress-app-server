@@ -6,7 +6,7 @@ const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const membersRouter = express.Router();
 
-membersRouter.route('/').get((req, res, next) => {
+membersRouter.route('/search').get((req, res, next) => {
   console.log('hello from base members route!');
   // MembersService.getAllSenators(req.app.get('db'))
   //   // .then(members => {
@@ -15,7 +15,7 @@ membersRouter.route('/').get((req, res, next) => {
   //   .catch(next);
 });
 
-membersRouter.route('/seedMembers').get((req, res, next) => {
+membersRouter.route('/seedMembers').get(async (req, res, next) => {
   console.log('hello from seedMembers route!');
   requestPromise({
     method: 'GET',
@@ -32,29 +32,36 @@ membersRouter.route('/seedMembers').get((req, res, next) => {
       return res.status(404).send(message);
     }
     console.log(data);
-    // debugger;
+    debugger;
+    MembersService.updateSenators(
+      req.app.get('db'),
+      data.results[0].members
+    ).then(result => {
+      debugger;
+      console.log('completed');
+    });
   });
 });
 
 // membersRouter.route('/').get((req, res, next) => {
-  // fetch(`${config.PROPUBLICA_API}/113/senate/members.json`)
-  //   .then(senators => senators.json())
-  //   .then(senatorsJSON => {
-  //     let senators = senatorsJSON.results.members;
-  //     MembersService.updateSenators(req.app.get('db'), senators);
-  //   });
-  // fetch(`${config.PROPUBLICA_API}/113/house/members.json`)
-  //   .then(reps => reps.json())
-  //   .then(repsJSON => {
-  //     let reps = repsJSON.results.members;
-  //     MembersService.updateReps(req.app.get('db'), reps);
-  //   })
-  // fetch(`${config.PROPUBLICA_API}/113/house/members.json`);
-  // MembersService.getAllSenators(req.app.get('db'))
-  // .then(members => {
-  //   res.json(MembersService.serializeMembers(members));
-  // })
-  // .catch(next);
+// fetch(`${config.PROPUBLICA_API}/113/senate/members.json`)
+//   .then(senators => senators.json())
+//   .then(senatorsJSON => {
+//     let senators = senatorsJSON.results.members;
+//     MembersService.updateSenators(req.app.get('db'), senators);
+//   });
+// fetch(`${config.PROPUBLICA_API}/113/house/members.json`)
+//   .then(reps => reps.json())
+//   .then(repsJSON => {
+//     let reps = repsJSON.results.members;
+//     MembersService.updateReps(req.app.get('db'), reps);
+//   })
+// fetch(`${config.PROPUBLICA_API}/113/house/members.json`);
+// MembersService.getAllSenators(req.app.get('db'))
+// .then(members => {
+//   res.json(MembersService.serializeMembers(members));
+// })
+// .catch(next);
 // });
 
 module.exports = membersRouter;
