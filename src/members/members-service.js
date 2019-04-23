@@ -4,24 +4,42 @@ const Treeize = require('treeize');
 const config = require('../config');
 
 const MembersService = {
-//   getAllSenators(db) {
-// https.get(`${config.PROPUBLICA_API}/113/senate/members.json`, res => {
-//   res.setEncoding("utf8");
-//   let body = "";
-//   res.on("data", data => {
-//     body += data;
-//   });
-//   res.on("end", () => {
-//     body = JSON.parse(body);
-//     console.log(body);
-//   });
-// });
-//    
+  updateSenators(db, senators) {
+    await Promise.all([...senators.map(senator => {
+      // check if senator already in senate? how
 
-//   getAllRepresentatives(db) {
-//  
-//   return;
-// },
+      //  if in senate, update, if not, insert
+      return db('senate')
+        .update({ ...senator });
+      return db('senate')
+        .insert({...senator});
+    })]);
+  },
+  updateReps(db, reps) {
+    await Promise.all([...reps.map(rep => {
+      return db('house')
+        .where('first_name', rep.first_name)
+        .update(rep);
+    })]);
+  },
+  //   getAllSenators(db) {
+  // https.get(`${config.PROPUBLICA_API}/113/senate/members.json`, res => {
+  //   res.setEncoding("utf8");
+  //   let body = "";
+  //   res.on("data", data => {
+  //     body += data;
+  //   });
+  //   res.on("end", () => {
+  //     body = JSON.parse(body);
+  //     console.log(body);
+  //   });
+  // });
+  //
+
+  //   getAllRepresentatives(db) {
+  //
+  //   return;
+  // },
 
   serializeMembers(members) {
     return members.map(this.serializeMember);
