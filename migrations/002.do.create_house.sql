@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS members (
+CREATE TABLE IF NOT EXISTS house (
   id TEXT,
   title TEXT,
   first_name TEXT,
