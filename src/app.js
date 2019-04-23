@@ -1,3 +1,4 @@
+'use strict';
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
@@ -21,6 +22,24 @@ app.use(helmet());
 app.use('/api/members', membersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+
+// template for using chron job!
+// add this for middleware to get API's data and post to DB -- https://www.npmjs.com/package/request
+// require("./app/auth-routes.js")(app, passport); // load the routes and pass in the app and configured passport
+// require("./app/game-routes.js")(app);
+
+// cron.schedule("*/59 * * * *", () => {
+//   console.log("cron running");
+//   app.runMiddleware("/checkPredictions", { connection: {} }, function(
+//     response
+//   ) {
+//     console.log("checkPredictions response", response);
+//     app.runMiddleware("/updatePoints", { connection: {} }, function(response) {
+//       console.log("updatePoints response", response);
+//     });
+//   });
+// });
+
 
 app.use(function errorHandler(error, req, res, next) {
   let response;
