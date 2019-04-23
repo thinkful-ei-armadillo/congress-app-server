@@ -22,7 +22,7 @@ membersRouter.route('/seedMembers').get((req, res, next) => {
     uri: `${PROPUBLICA_API}/115/senate/members.json`,
     json: true,
     headers: {
-      'X-Auth-Token': PROPUBLICA_APIKEY
+      'X-API-Key': PROPUBLICA_APIKEY
     },
     rejectUnauthorized: false
   }).then(data => {
