@@ -6,8 +6,13 @@ const MembersService = {
   updateSenators(db, senators) {
     Promise.all([
       ...senators.map(senator => {
-        return db('senate').update({ ...senator });
-        return db('senate').insert({ ...senator });
+
+        // if (db('senate').find(senator.name)) {
+        return db('senate').update({ senator });
+        // } else {
+        //   return db('senate').insert({ senator });
+        // }
+
       })
     ]);
   },
