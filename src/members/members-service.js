@@ -1,9 +1,27 @@
+'use strict';
+
 const Treeize = require('treeize');
+const config = require('../config');
 
 const MembersService = {
-  getAllMembers(db) {
-    return;
-  },
+//   getAllSenators(db) {
+// https.get(`${config.PROPUBLICA_API}/113/senate/members.json`, res => {
+//   res.setEncoding("utf8");
+//   let body = "";
+//   res.on("data", data => {
+//     body += data;
+//   });
+//   res.on("end", () => {
+//     body = JSON.parse(body);
+//     console.log(body);
+//   });
+// });
+//    
+
+//   getAllRepresentatives(db) {
+//  
+//   return;
+// },
 
   serializeMembers(members) {
     return members.map(this.serializeMember);
