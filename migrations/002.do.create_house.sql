@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS house (
-  id TEXT,
+  member_id TEXT,
   title TEXT,
   first_name TEXT,
   middle_name TEXT,
@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS house (
   url TEXT,
   in_office BOOLEAN,
   seniority INTEGER,
+  district INTEGER,
+  committees TEXT,
   next_election INTEGER,
   total_votes INTEGER,
   missed_votes INTEGER,
