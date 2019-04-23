@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const requestPromise = require('request-promise');
 const MembersService = require('./members-service');
@@ -6,17 +7,19 @@ const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 const membersRouter = express.Router();
 
 membersRouter.route('/').get((req, res, next) => {
-  MembersService.getAllSenators(req.app.get('db'))
-    // .then(members => {
-    //   res.json(MembersService.serializeMembers(members));
-    // })
-    .catch(next);
+  console.log('hello from base members route!');
+  // MembersService.getAllSenators(req.app.get('db'))
+  //   // .then(members => {
+  //   //   res.json(MembersService.serializeMembers(members));
+  //   // })
+  //   .catch(next);
 });
 
 membersRouter.route('/seedMembers').get((req, res, next) => {
+  console.log('hello from seedMembers route!');
   requestPromise({
     method: 'GET',
-    uri: PROPUBLICA_API,
+    uri: `${PROPUBLICA_API}/115/senate/members.json`,
     json: true,
     headers: {
       'X-Auth-Token': PROPUBLICA_APIKEY
@@ -28,11 +31,12 @@ membersRouter.route('/seedMembers').get((req, res, next) => {
       console.error(message);
       return res.status(404).send(message);
     }
-    debugger;
+    console.log(data);
+    // debugger;
   });
 });
 
-membersRouter.route('/').get((req, res, next) => {
+// membersRouter.route('/').get((req, res, next) => {
   // fetch(`${config.PROPUBLICA_API}/113/senate/members.json`)
   //   .then(senators => senators.json())
   //   .then(senatorsJSON => {
@@ -51,6 +55,6 @@ membersRouter.route('/').get((req, res, next) => {
   //   res.json(MembersService.serializeMembers(members));
   // })
   // .catch(next);
-});
+// });
 
 module.exports = membersRouter;

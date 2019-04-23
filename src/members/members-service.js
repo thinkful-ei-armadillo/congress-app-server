@@ -1,5 +1,4 @@
 'use strict';
-
 const Treeize = require('treeize');
 const config = require('../config');
 
@@ -44,7 +43,7 @@ const MembersService = {
   serializeMembers(members) {
     return members.map(this.serializeMember);
   },
-  serializeMember(food) {
+  serializeMember(member) {
     const memberTree = new Treeize();
     const memberData = memberTree.grow([member]).getData()[0];
 
