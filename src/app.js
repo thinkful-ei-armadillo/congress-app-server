@@ -4,9 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
-const foodsRouter = require('./foods/foods-router');
-const ingredientsRouter = require('./ingredients/ingredients-router');
-const ratingsRouter = require('./ratings/ratings-router');
+const membersRouter = require('./foods/foods-router');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 
@@ -20,9 +18,7 @@ app.use(
 app.use(cors());
 app.use(helmet());
 
-app.use('/api/ingredients', ingredientsRouter);
-app.use('/api/ratings', ratingsRouter);
-app.use('/api/foods', foodsRouter);
+app.use('/api/members', membersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 
