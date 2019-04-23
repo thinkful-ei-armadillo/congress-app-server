@@ -1,15 +1,35 @@
 const express = require('express');
+const requestPromise = require('request-promise');
 const MembersService = require('./members-service');
-const config = require('../config');
+const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const membersRouter = express.Router();
 
 membersRouter.route('/').get((req, res, next) => {
   MembersService.getAllSenators(req.app.get('db'))
-  // .then(members => {
-  //   res.json(MembersService.serializeMembers(members));
-  // })
+    // .then(members => {
+    //   res.json(MembersService.serializeMembers(members));
+    // })
     .catch(next);
+});
+
+membersRouter.route('/seedMembers').get((req, res, next) => {
+  requestPromise({
+    method: 'GET',
+    uri: PROPUBLICA_API,
+    json: true,
+    headers: {
+      'X-Auth-Token': PROPUBLICA_APIKEY
+    },
+    rejectUnauthorized: false
+  }).then(data => {
+    if (!data) {
+      const message = 'No Data';
+      console.error(message);
+      return res.status(404).send(message);
+    }
+    debugger;
+  });
 });
 
 membersRouter.route('/').get((req, res, next) => {
@@ -30,7 +50,7 @@ membersRouter.route('/').get((req, res, next) => {
   // .then(members => {
   //   res.json(MembersService.serializeMembers(members));
   // })
-    .catch(next);
+  // .catch(next);
 });
 
 module.exports = membersRouter;
