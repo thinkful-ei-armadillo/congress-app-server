@@ -1,4 +1,0 @@
-ALTER TABLE foods
-  DROP COLUMN IF EXISTS brand;
-
-DROP TABLE IF EXISTS brands;

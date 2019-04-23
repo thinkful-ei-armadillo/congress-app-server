@@ -1,5 +1,5 @@
 {
-	"name": "Congress",
+	"name": "congress",
 	"version": "1.0.0",
 	"description": "",
 	"main": "src/server.js",
@@ -28,7 +28,7 @@
 	},
 	"devDependencies": {
 		"chai": "^4.2.0",
-		"mocha": "^6.0.2",
+		"mocha": "^6.1.4",
 		"nodemon": "^1.18.10",
 		"postgrator-cli": "^3.1.0",
 		"supertest": "^4.0.2"
@@ -38,11 +38,11 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/owencyr/pet-food-server.git"
+		"url": "git+https://github.com/thinkful-ei-armadillo/congress-app-server"
 	},
 	"author": "Rocket Power",
 	"bugs": {
-		"url": "https://github.com/owencyr/pet-food-server/issues"
+		"url": "https://github.com/thinkful-ei-armadillo/congress-app-server/issues"
 	},
-	"homepage": "https://github.com/owencyr/pet-food-server#readme"
+	"homepage": "https://github.com/thinkful-ei-armadillo/congress-app-server/blob/master/README.md"
 }
