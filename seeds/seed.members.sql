@@ -47,7 +47,7 @@ VALUES
   "SenAlexander",
   "senatorlamaralexander",
   "lamaralexander",
-  "300002",
+  300002,
   "https://www.alexander.senate.gov/public",
   true,
   15,
