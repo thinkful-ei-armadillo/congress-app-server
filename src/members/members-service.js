@@ -1,48 +1,33 @@
 'use strict';
 const Treeize = require('treeize');
 const config = require('../config');
+const { getSenatorObj, getRepObj } = require('../utils/extract');
 
 const MembersService = {
   updateSenators(db, senators) {
-    Promise.all([
+    return Promise.all([
+      db('senate').truncate(),
       ...senators.map(senator => {
-
-        // if (db('senate').find(senator.name)) {
-        return db('senate').update({ senator });
+        senator = getSenatorObj(senator);
+        return db('senate').insert({ ...senator });
         // } else {
         //   return db('senate').insert({ senator });
         // }
-
       })
     ]);
   },
+
   updateReps(db, reps) {
-    Promise.all([
+    debugger;
+    return Promise.all([
+      db('house').truncate(),
       ...reps.map(rep => {
-        return db('house')
-          .where('first_name', rep.first_name)
-          .update(rep);
+        rep = getRepObj(rep);
+        console.log(rep);
+        return db('house').insert({ ...rep });
       })
     ]);
   },
-  //   getAllSenators(db) {
-  // https.get(`${config.PROPUBLICA_API}/113/senate/members.json`, res => {
-  //   res.setEncoding("utf8");
-  //   let body = "";
-  //   res.on("data", data => {
-  //     body += data;
-  //   });
-  //   res.on("end", () => {
-  //     body = JSON.parse(body);
-  //     console.log(body);
-  //   });
-  // });
-  //
-
-  //   getAllRepresentatives(db) {
-  //
-  //   return;
-  // },
 
   serializeMembers(members) {
     return members.map(this.serializeMember);

@@ -16,31 +16,62 @@ membersRouter.route('/search').get((req, res, next) => {
 });
 
 membersRouter.route('/seedMembers').get(async (req, res, next) => {
+  debugger;
   console.log('hello from seedMembers route!');
-  requestPromise({
-    method: 'GET',
-    uri: `${PROPUBLICA_API}/115/senate/members.json`,
-    json: true,
-    headers: {
-      'X-API-Key': PROPUBLICA_APIKEY
-    },
-    rejectUnauthorized: false
-  }).then(data => {
-    if (!data) {
-      const message = 'No Data';
-      console.error(message);
-      return res.status(404).send(message);
-    }
-    console.log(data);
-    debugger;
-    MembersService.updateSenators(
-      req.app.get('db'),
-      data.results[0].members
-    ).then(result => {
-      debugger;
-      console.log('completed');
+  try {
+    await Promise.all([
+      requestPromise({
+        method: 'GET',
+        uri: `${PROPUBLICA_API}/115/senate/members.json`,
+        json: true,
+        headers: {
+          'X-API-Key': PROPUBLICA_APIKEY
+        },
+        rejectUnauthorized: false
+      }).then(data => {
+        if (!data) {
+          const message = 'No Data';
+          console.error(message);
+          return res.status(404).send(message);
+        }
+        MembersService.updateSenators(
+          req.app.get('db'),
+          data.results[0].members
+        ).then(result => {
+          debugger;
+          console.log('completed');
+        });
+      }),
+      requestPromise({
+        method: 'GET',
+        uri: `${PROPUBLICA_API}/115/house/members.json`,
+        json: true,
+        headers: {
+          'X-API-Key': PROPUBLICA_APIKEY
+        },
+        rejectUnauthorized: false
+      }).then(data => {
+        if (!data) {
+          const message = 'No Data';
+          console.error(message);
+          return res.status(404).send(message);
+        }
+        debugger;
+
+        MembersService.updateReps(
+          req.app.get('db'),
+          data.results[0].members
+        ).then(result => {
+          debugger;
+          console.log('completed');
+        });
+      })
+    ]).then(data => {
+      return res.send(200);
     });
-  });
+  } catch (e) {
+    next(e);
+  }
 });
 
 // membersRouter.route('/').get((req, res, next) => {

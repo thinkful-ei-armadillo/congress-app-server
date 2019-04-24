@@ -26,14 +26,15 @@ app.use('/api/members', membersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 
-cron.schedule('1 * * * *', () => {
-  console.log('cron running');
-  app.runMiddleware('/api/members/seedMembers', { connection: {} }, function(
-    response
-  ) {
-    console.log('members response', response);
-  });
-});
+// cron.schedule('*/1 * * * *', () => {
+//   console.log('cron running');
+//   debugger;
+//   app.runMiddleware('/api/members/seedMembers', { connection: {} }, function(
+//     response
+//   ) {
+//     console.log('members response', response);
+//   });
+// });
 
 app.use(function errorHandler(error, req, res, next) {
   let response;

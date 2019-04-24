@@ -26,6 +26,6 @@ CREATE TABLE IF NOT EXISTS senate (
   state TEXT,
   senate_class INTEGER,
   state_rank TEXT,
-  missed_votes_pct INTEGER,
-  votes_with_party_pct INTEGER
+  missed_votes_pct NUMERIC,
+  votes_with_party_pct NUMERIC
 );
