@@ -10,9 +10,6 @@ const MembersService = {
       ...senators.map(senator => {
         senator = getSenatorObj(senator);
         return db('senate').insert({ ...senator });
-        // } else {
-        //   return db('senate').insert({ senator });
-        // }
       })
     ]);
   },
