@@ -9,8 +9,8 @@ const membersRouter = express.Router();
 
 // GET api/members/ with search compatability
 membersRouter.route('/').get((req, res, next) => {
-	const { state } = req.body;
-	const newSearch = { state};
+	const { state } = req.query;
+	const newSearch = { state };
 	console.log(newSearch);
 
 	if (!req.body) {
@@ -20,8 +20,8 @@ membersRouter.route('/').get((req, res, next) => {
 			})
 			.catch(next);
 	} else {
-		if (state) {
-			res.json(MembersService.getMemberByState(state));
+		if (newSearch.state) {
+			res.json(MembersService.getMemberByState(newSearch.state));
 		}
 	// 	if (firstname) {
 	// 		res.json(MembersService.getMemberByFirstName(firstname));
@@ -29,7 +29,7 @@ membersRouter.route('/').get((req, res, next) => {
 	// 	if (lastname) {
 	// 		res.json(MembersService.getMemberByLastName(lastname));
 	// 	}
-	// }
+	}
 });
 
 membersRouter.route('/search').get((req, res, next) => {
