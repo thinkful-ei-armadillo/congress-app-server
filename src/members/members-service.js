@@ -1,18 +1,15 @@
 'use strict';
 const Treeize = require('treeize');
-const config = require('../config');
 const { getSenatorObj, getRepObj } = require('../utils/extract');
 
 const MembersService = {
+  
   updateSenators(db, senators) {
     return Promise.all([
       db('senate').truncate(),
       ...senators.map(senator => {
         senator = getSenatorObj(senator);
         return db('senate').insert({ ...senator });
-        // } else {
-        //   return db('senate').insert({ senator });
-        // }
       })
     ]);
   },
@@ -27,6 +24,21 @@ const MembersService = {
         return db('house').insert({ ...rep });
       })
     ]);
+  },
+
+  getAllSenators(db) {
+    return db
+      .from('senate')
+      .select('*')
+      .leftJoin(
+        'house'
+      )
+  },
+
+  getById(db, id) {
+    return MembersService.getAllSenators(db)
+      .where('senate.id', id)
+      .first();
   },
 
   serializeMembers(members) {
