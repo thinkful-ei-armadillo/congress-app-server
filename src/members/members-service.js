@@ -35,8 +35,7 @@ const MembersService = {
 	getAllMembers(db) {
 		return db
 			.select('*')
-			.from('senate')
-			.union([db.select('*').from('house')]);
+			.from('members')
 	},
 
 	// getAllSenators(db) {
