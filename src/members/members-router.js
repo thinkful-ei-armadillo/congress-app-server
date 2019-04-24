@@ -8,7 +8,7 @@ const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 const membersRouter = express.Router();
 
 // GET api/members/ with search compatability
-membersRouter.route('/').get((req, res, next) => {
+/*membersRouter.route('/').get((req, res, next) => {
   const { state, firstname, lastname } = req.body;
   const newSearch = { state, firstname, lastname };
   console.log(newSearch);
@@ -30,8 +30,7 @@ membersRouter.route('/').get((req, res, next) => {
       res.json(MembersService.getMemberByLastName(lastname));
     }
   }
-});
-
+});*/
 membersRouter.route('/search').get((req, res, next) => {
   debugger;
   var url_parts = url.parse(req.url, true);
@@ -42,8 +41,9 @@ membersRouter.route('/search').get((req, res, next) => {
     if (query.query === undefined) {
       query.query = '';
     }
-    MembersService.searchMemberQuery(req.app.get('db'), query.query)
+    MembersService.searchMemberQuery(req.app.get('db'), query.query.split(' '))
       .then(members => {
+        debugger;
         res.json(members);
       })
       .catch(next);
@@ -135,6 +135,19 @@ membersRouter.route('/seedBills').get(async (req, res, next) => {
       })
     ]).then(data => {
       return res.sendStatus(200);
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
+membersRouter.route('/:id').get((req, res, next) => {
+  debugger;
+  try {
+    const id = req.params.id;
+
+    MembersService.getMemberByID(req.app.get('db'), id).then(member => {
+      res.json(member);
     });
   } catch (e) {
     next(e);

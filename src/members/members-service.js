@@ -32,6 +32,25 @@ const MembersService = {
     ]);
   },
 
+  searchMemberQuery(db, query) {
+    debugger;
+    return db
+      .select('*')
+      .from('members')
+      .whereRaw(
+        `lower(first_name) similar to '%(${query.join('|').toLowerCase()})%'`
+      )
+      .orWhereRaw(
+        `lower(last_name) similar to '%(${query.join('|').toLowerCase()})'`
+      );
+
+    /*return db
+      .select('*')
+      .from('members')
+      .whereIn('first_name', query)
+      .orWhereIn('last_name', query);*/
+  },
+
   getAllMembers(db) {
     return db.select('*').from('members');
   },
