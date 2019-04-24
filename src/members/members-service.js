@@ -36,33 +36,28 @@ const MembersService = {
 		return db
 			.select('*')
 			.from('members')
-	},
+  },
+  
+  getMemberByState(db, state) {
+    return MembersService.getAllMembers(db)
+      .where('state', state)
+  },
 
-	// getAllSenators(db) {
-	// 	return db.select('*').from('senate');
-	// },
+  getMemberByFirstName(db, name) {
+    return MembersService.getAllMembers(db)
+      .where('first_name', name)
+  },
 
-	// getAllReps(db) {
-	// 	return db.select('*').from('house');
-	// },
+  getMemberByLastName(db, name) {
+    return MembersService.getAllMembers(db)
+      .where('last_name', name)
+  },
 
 	getMemberByID(db, id) {
 		return MembersService.getAllMembers(db)
 			.where('id', id)
 			.first();
 	},
-
-	// getSenById(db, id) {
-	// 	return MembersService.getAllSenators(db)
-	// 		.where('id', id)
-	// 		.first();
-	// },
-
-	// getRepById(db, id) {
-	// 	return MembersService.getAllReps(db)
-	// 		.where('id', id)
-	// 		.first();
-	// },
 
 	serializeMembers(members) {
 		return members.map(this.serializeMember);

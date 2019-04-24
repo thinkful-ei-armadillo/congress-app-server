@@ -6,13 +6,30 @@ const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const membersRouter = express.Router();
 
-// GET api/members/
+// GET api/members/ with search compatability
 membersRouter.route('/').get((req, res, next) => {
-  MembersService.getAllMembers(req.app.get('db'))
+	const { state, firstname, lastname } = req.body;
+	const newSearch = { state, firstname, lastname }
+	console.log(newSearch);
+
+	if (!req.body) {
+		MembersService.getAllMembers(req.app.get('db'))
     .then(members => {
       res.json(MembersService.serializeMembers(members));
     })
-    .catch(next);
+		.catch(next);
+	} else {
+		if (state) {
+			res.json(MembersService.getMemberByState(state));
+		}
+		if (firstname) {
+			res.json(MembersService.getMemberByFirstName(firstname));
+		}
+		if (lastname) {
+			res.json(MembersService.getMemberByLastName(lastname));
+		}
+	}
+  
 });
 
 // seeding the members in db
