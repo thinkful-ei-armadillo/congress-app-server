@@ -6,11 +6,12 @@ const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const membersRouter = express.Router();
 
-membersRouter.get('/', function(req, res, next) {
+membersRouter.route('/').get((req, res, next) => {
   MembersService.getAllSenators(req.app.get('db'))
     .then(members => {
       res.json(MembersService.serializeMembers(members))
-    });
+    })
+    .catch(next);
 });
 
 

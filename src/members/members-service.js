@@ -15,7 +15,6 @@ const MembersService = {
   },
 
   updateReps(db, reps) {
-    debugger;
     return Promise.all([
       db('house').truncate(),
       ...reps.map(rep => {
@@ -30,9 +29,6 @@ const MembersService = {
     return db
       .from('senate')
       .select('*')
-      .leftJoin(
-        'house'
-      )
   },
 
   getById(db, id) {
@@ -50,16 +46,34 @@ const MembersService = {
 
     return {
       id: memberData.id,
-      variety: memberData.variety,
-      kcal: memberData.kcal,
-      grade: memberData.grade,
-      brand: memberData.brand_name,
-      i1: memberData.i1,
-      i2: memberData.i2,
-      i3: memberData.i3,
-      i4: memberData.i4,
-      i5: memberData.i5,
-      rating: memberData.rating
+      title: memberData.title,
+      first_name: memberData.first_name,
+      middle_name: memberData.middle_name,
+      last_name: memberData.last_name,
+      suffix: memberData.suffix,
+      date_of_birth: memberData.date_of_birth,
+      party: memberData.party,
+      leadership_role: memberData.leadership_role,
+      twitter_account: memberData.twitter_account,
+      facebook_account: memberData.facebook_account,
+      youtube_account: memberData.youtube_account,
+      govtrack_id: memberData.govtrack_id,
+      url: memberData.url,
+      in_office: memberData.in_office,
+      seniority: memberData.seniority,
+      next_election: memberData.next_election,
+      total_votes: memberData.total_votes,
+      missed_votes: memberData.total_votes,
+      total_present: memberData.total_present,
+      last_updated: memberData.last_updated,
+      office: memberData.office,
+      phone: memberData.phone,
+      fax: memberData.fax,
+      state: memberData.state,
+      senate_class: memberData.senate_class,
+      state_rank: memberData.state_rank,
+      missed_votes_pct: memberData.missed_votes_pct,
+      votes_with_party_pct: memberData.votes_with_party_pct
     };
   }
 };
