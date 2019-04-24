@@ -1,6 +1,6 @@
 'use strict';
 const Treeize = require('treeize');
-const { getSenatorObj, getRepObj } = require('../utils/extract');
+const { getSenatorObj, getRepObj, getBillObj } = require('../utils/extract');
 
 const MembersService = {
   
@@ -23,6 +23,16 @@ const MembersService = {
         return db('house').insert({ ...rep });
       })
     ]);
+  },
+
+  updateBills(db, bills) {
+    return Promise.all([
+      db('bills').truncate(),
+      ...bills.map(bill => {
+        bill = getBillObj(bill);
+        return db('bills').insert({ ...bill });
+      })
+    ])
   },
 
   getAllMembers(db) {

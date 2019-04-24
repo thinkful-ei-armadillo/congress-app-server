@@ -1,3 +1,5 @@
+'use strict';
+
 const getSenatorObj = obj => {
   const {
     id,
@@ -133,4 +135,65 @@ const getRepObj = obj => {
   };
 };
 
-module.exports = { getSenatorObj, getRepObj };
+const getBillObj = obj => {
+  const {
+    bill_id,
+    bill_type,
+    number,
+    bill_uri,
+    title,
+    sponsor_id ,
+    sponsor_name ,
+    sponsor_state ,
+    sponsor_uri ,
+    gpo_pdf_uri ,
+    congressdotgov_url ,
+    govtrack_url ,
+    introduced_date ,
+    active,
+    house_passage ,
+    senate_passage ,
+    enacted ,
+    vetoed ,
+    cosponsors,
+    committees ,
+    committee_codes ,
+    subcommittee_codes ,
+    primary_subject ,
+    summary ,
+    summary_short ,
+    latest_major_action_date ,
+    latest_major_action 
+  } = obj;
+  return {
+    bill_id,
+    bill_type,
+    number,
+    bill_uri,
+    title,
+    sponsor_id ,
+    sponsor_name ,
+    sponsor_state ,
+    sponsor_uri ,
+    gpo_pdf_uri ,
+    congressdotgov_url ,
+    govtrack_url ,
+    introduced_date ,
+    active,
+    house_passage ,
+    senate_passage ,
+    enacted ,
+    vetoed ,
+    cosponsors,
+    committees ,
+    committee_codes ,
+    subcommittee_codes ,
+    primary_subject ,
+    summary ,
+    summary_short ,
+    latest_major_action_date ,
+    latest_major_action 
+  };
+};
+
+module.exports = { getSenatorObj, getRepObj, getBillObj };
