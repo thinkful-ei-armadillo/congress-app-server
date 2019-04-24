@@ -22,7 +22,7 @@ membersRouter.route('/seedMembers').get(async (req, res, next) => {
     await Promise.all([
       requestPromise({
         method: 'GET',
-        uri: `${PROPUBLICA_API}/115/senate/members.json`,
+        uri: `${PROPUBLICA_API}/116/senate/members.json`,
         json: true,
         headers: {
           'X-API-Key': PROPUBLICA_APIKEY
@@ -44,7 +44,7 @@ membersRouter.route('/seedMembers').get(async (req, res, next) => {
       }),
       requestPromise({
         method: 'GET',
-        uri: `${PROPUBLICA_API}/115/house/members.json`,
+        uri: `${PROPUBLICA_API}/116/house/members.json`,
         json: true,
         headers: {
           'X-API-Key': PROPUBLICA_APIKEY
