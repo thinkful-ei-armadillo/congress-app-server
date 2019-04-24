@@ -8,9 +8,9 @@ const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 const membersRouter = express.Router();
 
 // GET api/members/ with search compatability
-/*membersRouter.route('/').get((req, res, next) => {
-  const { state, firstname, lastname } = req.body;
-  const newSearch = { state, firstname, lastname };
+membersRouter.route('/').get((req, res, next) => {
+  const { state } = req.query;
+  const newSearch = { state };
   console.log(newSearch);
 
   if (!req.body) {
@@ -20,17 +20,18 @@ const membersRouter = express.Router();
       })
       .catch(next);
   } else {
-    if (state) {
-      res.json(MembersService.getMemberByState(state));
+    if (newSearch.state) {
+      res.json(MembersService.getMemberByState(newSearch.state));
     }
-    if (firstname) {
-      res.json(MembersService.getMemberByFirstName(firstname));
-    }
-    if (lastname) {
-      res.json(MembersService.getMemberByLastName(lastname));
-    }
+    // 	if (firstname) {
+    // 		res.json(MembersService.getMemberByFirstName(firstname));
+    // 	}
+    // 	if (lastname) {
+    // 		res.json(MembersService.getMemberByLastName(lastname));
+    // 	}
   }
-});*/
+});
+
 membersRouter.route('/search').get((req, res, next) => {
   debugger;
   var url_parts = url.parse(req.url, true);
