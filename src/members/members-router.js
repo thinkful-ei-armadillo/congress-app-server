@@ -2,6 +2,7 @@
 const express = require('express');
 const requestPromise = require('request-promise');
 const MembersService = require('./members-service');
+const url = require('url');
 const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const membersRouter = express.Router();
@@ -13,6 +14,30 @@ membersRouter.route('/').get((req, res, next) => {
       res.json(MembersService.serializeMembers(members));
     })
     .catch(next);
+});
+
+membersRouter.route('/search').get((req, res, next) => {
+  debugger;
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+
+  if (Object.keys(query).length > 0) {
+    console.log(query.query);
+    if (query.query === undefined) {
+      query.query = '';
+    }
+    MembersService.searchMemberQuery(req.app.get('db'), query.query)
+      .then(members => {
+        res.json(members);
+      })
+      .catch(next);
+  } else {
+    MembersService.getAllMembers(req.app.get('db'))
+      .then(member => {
+        res.json(member);
+      })
+      .catch(next);
+  }
 });
 
 // seeding the members in db
