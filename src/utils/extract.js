@@ -1,5 +1,74 @@
 'use strict';
 
+const getMembersObj = obj => {
+  const {
+    id,
+    title,
+    first_name,
+    middle_name,
+    last_name,
+    suffix,
+    date_of_birth,
+    party,
+    leadership_role,
+    twitter_account,
+    facebook_account,
+    youtube_account,
+    govtrack_id,
+    url,
+    in_office,
+    seniority,
+    district,
+    committees,
+    next_election,
+    total_votes,
+    missed_votes,
+    total_present,
+    last_updated,
+    office,
+    phone,
+    fax,
+    state,
+    senate_class,
+    state_rank,
+    missed_votes_pct,
+    votes_with_party_pct
+  } = obj;
+  return {
+    id,
+    title,
+    first_name,
+    middle_name,
+    last_name,
+    suffix,
+    date_of_birth,
+    party,
+    leadership_role,
+    twitter_account,
+    facebook_account,
+    youtube_account,
+    govtrack_id,
+    url,
+    in_office,
+    seniority,
+    district,
+    committees,
+    next_election,
+    total_votes,
+    missed_votes,
+    total_present,
+    last_updated,
+    office,
+    phone,
+    fax,
+    state,
+    senate_class,
+    state_rank,
+    missed_votes_pct,
+    votes_with_party_pct
+  }
+}
+
 const getSenatorObj = obj => {
   const {
     id,
@@ -196,4 +265,4 @@ const getBillObj = obj => {
   };
 };
 
-module.exports = { getSenatorObj, getRepObj, getBillObj };
+module.exports = { getSenatorObj, getRepObj, getBillObj, getMembersObj };

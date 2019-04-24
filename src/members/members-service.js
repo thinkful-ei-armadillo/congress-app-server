@@ -1,29 +1,39 @@
 'use strict';
 const Treeize = require('treeize');
-const { getSenatorObj, getRepObj, getBillObj } = require('../utils/extract');
+const { getSenatorObj, getRepObj, getBillObj, getMembersObj } = require('../utils/extract');
 
 const MembersService = {
-  
-  updateSenators(db, senators) {
-    return Promise.all([
-      db('senate').truncate(),
-      ...senators.map(senator => {
-        senator = getSenatorObj(senator);
-        return db('senate').insert({ ...senator });
-      })
-    ]);
-  },
 
-  updateReps(db, reps) {
+  updateMembers(db, members) {
     return Promise.all([
-      db('house').truncate(),
-      ...reps.map(rep => {
-        rep = getRepObj(rep);
-        console.log(rep);
-        return db('house').insert({ ...rep });
+      db('members').truncate(),
+      ...members.map(member => {
+        member = getMembersObj(member);
+        return db('members').insert({ ...member });
       })
     ]);
   },
+  
+  // updateSenators(db, senators) {
+  //   return Promise.all([
+  //     db('senate').truncate(),
+  //     ...senators.map(senator => {
+  //       senator = getSenatorObj(senator);
+  //       return db('senate').insert({ ...senator });
+  //     })
+  //   ]);
+  // },
+
+  // updateReps(db, reps) {
+  //   return Promise.all([
+  //     db('house').truncate(),
+  //     ...reps.map(rep => {
+  //       rep = getRepObj(rep);
+  //       console.log(rep);
+  //       return db('house').insert({ ...rep });
+  //     })
+  //   ]);
+  // },
 
   updateBills(db, bills) {
     return Promise.all([

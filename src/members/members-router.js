@@ -55,7 +55,7 @@ membersRouter.route('/seedMembers').get(async (req, res, next) => {
           console.error(message);
           return res.status(404).send(message);
         }
-        MembersService.updateSenators(
+        MembersService.updateMembers(
           req.app.get('db'),
           data.results[0].members
         ).then(result => {
@@ -79,7 +79,7 @@ membersRouter.route('/seedMembers').get(async (req, res, next) => {
         }
         
 
-        MembersService.updateReps(
+        MembersService.updateMembers(
           req.app.get('db'),
           data.results[0].members
         ).then(result => {
