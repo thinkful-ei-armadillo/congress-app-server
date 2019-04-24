@@ -2,17 +2,58 @@
 const express = require('express');
 const requestPromise = require('request-promise');
 const MembersService = require('./members-service');
+const url = require('url');
 const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const membersRouter = express.Router();
 
-// GET api/members/
+// GET api/members/ with search compatability
 membersRouter.route('/').get((req, res, next) => {
-	MembersService.getAllMembers(req.app.get('db'))
-		.then(members => {
-			res.json(MembersService.serializeMembers(members));
-		})
-		.catch(next);
+	const { state, firstname, lastname } = req.body;
+	const newSearch = { state, firstname, lastname };
+	console.log(newSearch);
+
+	if (!req.body) {
+		MembersService.getAllMembers(req.app.get('db'))
+			.then(members => {
+				res.json(MembersService.serializeMembers(members));
+			})
+			.catch(next);
+	} else {
+		if (state) {
+			res.json(MembersService.getMemberByState(state));
+		}
+		if (firstname) {
+			res.json(MembersService.getMemberByFirstName(firstname));
+		}
+		if (lastname) {
+			res.json(MembersService.getMemberByLastName(lastname));
+		}
+	}
+});
+
+membersRouter.route('/search').get((req, res, next) => {
+	debugger;
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+
+	if (Object.keys(query).length > 0) {
+		console.log(query.query);
+		if (query.query === undefined) {
+			query.query = '';
+		}
+		MembersService.searchMemberQuery(req.app.get('db'), query.query)
+			.then(members => {
+				res.json(members);
+			})
+			.catch(next);
+	} else {
+		MembersService.getAllMembers(req.app.get('db'))
+			.then(member => {
+				res.json(member);
+			})
+			.catch(next);
+	}
 });
 
 // seeding the members in db
