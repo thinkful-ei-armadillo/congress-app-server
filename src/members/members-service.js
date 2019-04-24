@@ -1,19 +1,39 @@
 'use strict';
 const Treeize = require('treeize');
-const { getSenatorObj, getRepObj, getBillObj, getMembersObj } = require('../utils/extract');
+const {
+  getSenatorObj,
+  getRepObj,
+  getBillObj,
+  getMembersObj
+} = require('../utils/extract');
 
 const MembersService = {
-
   updateMembers(db, members) {
     return Promise.all([
-      db('members').truncate(),
       ...members.map(member => {
         member = getMembersObj(member);
         return db('members').insert({ ...member });
       })
     ]);
   },
-  
+
+  addHouseMembers(db, members) {
+    return Promise.all([
+      ...members.map(member => {
+        member = getMembersObj(member);
+        return db('members').insert({ ...member, type: 'HOUSE' });
+      })
+    ]);
+  },
+
+  addSenateMembers(db, members) {
+    return Promise.all([
+      ...members.map(member => {
+        member = getMembersObj(member);
+        return db('members').insert({ ...member, type: 'SENATE' });
+      })
+    ]);
+  },
   // updateSenators(db, senators) {
   //   return Promise.all([
   //     db('senate').truncate(),
@@ -42,29 +62,22 @@ const MembersService = {
         bill = getBillObj(bill);
         return db('bills').insert({ ...bill });
       })
-    ])
+    ]);
   },
 
   getAllMembers(db) {
     return db
       .select('*')
       .from('senate')
-      .union([
-        db.select('*')
-          .from('house')
-      ])
+      .union([db.select('*').from('house')]);
   },
 
   getAllSenators(db) {
-    return db
-      .select('*')
-      .from('senate')
+    return db.select('*').from('senate');
   },
 
   getAllReps(db) {
-    return db
-      .select('*')
-      .from('house')
+    return db.select('*').from('house');
   },
 
   getSenById(db, id) {
