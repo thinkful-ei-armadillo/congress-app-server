@@ -6,8 +6,19 @@ const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const billsRouter = express.Router();
 
+//getall route
+
+billsRouter.route('/').get( (req, res, next) => {
+  BillsService.getAllBills(req.app.get('db'))
+    .then(bills => {
+      res.json(BillsService.serializeBills(bills))
+    })
+    .catch(next);
+});
+
 // seeding the bills in db
 billsRouter.route('/seedBills').get(async (req, res, next) => {
+
   console.log('hello from seedBills route!');
   try {
     await Promise.all([
@@ -26,7 +37,7 @@ billsRouter.route('/seedBills').get(async (req, res, next) => {
           return res.status(404).send(message);
         }
 
-        MembersService.updateBills(
+        BillsService.updateBills(
           req.app.get('db'),
           data.results[0].bills
         ).then(result => {
@@ -40,4 +51,7 @@ billsRouter.route('/seedBills').get(async (req, res, next) => {
   } catch (e) {
     next(e);
   }
+
 });
+
+module.exports = billsRouter;

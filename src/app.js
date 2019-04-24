@@ -9,7 +9,7 @@ const cron = require('node-cron');
 const membersRouter = require('./members/members-router');
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
-const billsRouter = require('./bills/bills-route');
+const billsRouter = require('./bills/bills-router');
 
 const app = express();
 
