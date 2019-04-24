@@ -67,7 +67,7 @@ membersRouter.route('/seedMembers').get(async (req, res, next) => {
         });
       })
     ]).then(data => {
-      return res.send(200);
+      return res.sendStatus(200);
     });
   } catch (e) {
     next(e);
