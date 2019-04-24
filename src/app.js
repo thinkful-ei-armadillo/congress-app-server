@@ -36,6 +36,17 @@ app.use('/api/users', usersRouter);
 //   });
 // });
 
+// 4/24 "cannot read property pipescount of undefined"
+// let refreshMembers = cron.schedule('*/1 * * * *', () => {
+//   console.log('cron running');
+
+//   app.runMiddleware('/api/members/seedMembers', function(code, body, headers) {
+//     console.log('members response', body);
+//   });
+// });
+
+// refreshMembers.start();
+
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === 'production') {
