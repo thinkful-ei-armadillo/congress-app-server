@@ -8,16 +8,21 @@ const {
 } = require('../utils/extract');
 
 const MembersService = {
-  updateMembers(db, members) {
+  updateMembers(db, senate, house) {
     return Promise.all([
-      ...members.map(member => {
+      db('members').truncate(),
+      ...house.map(member => {
         member = getMembersObj(member);
-        return db('members').insert({ ...member });
+        return db('members').insert({ ...member, type: 'HOUSE' });
+      }),
+      ...senate.map(member => {
+        member = getMembersObj(member);
+        return db('members').insert({ ...member, type: 'SENATE' });
       })
     ]);
   },
 
-  addHouseMembers(db, members) {
+  /*addHouseMembers(db, members) {
     return Promise.all([
       ...members.map(member => {
         member = getMembersObj(member);
@@ -33,7 +38,7 @@ const MembersService = {
         return db('members').insert({ ...member, type: 'SENATE' });
       })
     ]);
-  },
+  },*/
   // updateSenators(db, senators) {
   //   return Promise.all([
   //     db('senate').truncate(),

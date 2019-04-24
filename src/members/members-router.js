@@ -49,12 +49,8 @@ membersRouter.route('/seedMembers').get(async (req, res, next) => {
           console.error(message);
           return res.status(404).send(message);
         }
-        MembersService.addSenateMembers(
-          req.app.get('db'),
-          data.results[0].members
-        ).then(result => {
-          console.log('completed');
-        });
+
+        return data.results[0].members;
       }),
       requestPromise({
         method: 'GET',
@@ -70,16 +66,14 @@ membersRouter.route('/seedMembers').get(async (req, res, next) => {
           console.error(message);
           return res.status(404).send(message);
         }
-
-        MembersService.addHouseMembers(
-          req.app.get('db'),
-          data.results[0].members
-        ).then(result => {
-          console.log('completed');
-        });
+        return data.results[0].members;
       })
     ]).then(data => {
-      return res.sendStatus(200);
+      MembersService.updateMembers(req.app.get('db'), data[0], data[1]).then(
+        result => {
+          res.sendStatus(200);
+        }
+      );
     });
   } catch (e) {
     next(e);
