@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS senate (
   last_name TEXT,
   suffix TEXT,
   date_of_birth TEXT,
-  part TEXT,
+  party TEXT,
   leadership_role TEXT,
   twitter_account TEXT,
   facebook_account TEXT,
