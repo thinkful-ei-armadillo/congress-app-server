@@ -33,10 +33,7 @@ const MembersService = {
 	},
 
 	getAllMembers(db) {
-		return db
-			.select('*')
-			.from('senate')
-			.union([db.select('*').from('house')]);
+		return db.select('*').from('members');
 	},
 
 	// getAllSenators(db) {
@@ -48,7 +45,8 @@ const MembersService = {
 	// },
 
 	getMemberByID(db, id) {
-		return MembersService.getAllMembers(db)
+		return db('members')
+			.select('*')
 			.where('id', id)
 			.first();
 	},
