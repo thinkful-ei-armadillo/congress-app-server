@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS members (
-  member_id TEXT,
+  id TEXT,
   title TEXT,
   first_name TEXT,
   middle_name TEXT,
@@ -29,5 +29,6 @@ CREATE TABLE IF NOT EXISTS members (
   senate_class INTEGER DEFAULT NULL,
   state_rank TEXT DEFAULT NULL,
   missed_votes_pct NUMERIC,
-  votes_with_party_pct NUMERIC
+  votes_with_party_pct NUMERIC,
+  type TEXT
 );
