@@ -32,6 +32,14 @@ membersRouter.route('/').get((req, res, next) => {
 	}
 });
 
+membersRouter.route('/:id').get((req, res, next) => {
+	MembersService.getMemberByID(req.app.get('db'), req.params.id)
+		.then(member => {
+			return res.status(200).json(member);
+		})
+		.catch(next);
+});
+
 membersRouter.route('/search').get((req, res, next) => {
 	debugger;
 	var url_parts = url.parse(req.url, true);
