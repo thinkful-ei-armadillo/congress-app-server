@@ -1,3 +1,4 @@
+'use strict';
 const xss = require('xss');
 const bcrypt = require('bcryptjs');
 
@@ -40,7 +41,6 @@ const UsersService = {
       id: user.id,
       full_name: xss(user.full_name),
       user_name: xss(user.user_name),
-      nickname: xss(user.nickname),
       date_created: user.date_created
     };
   }

@@ -34,14 +34,12 @@ describe('Users Router Endpoints', () => {
           user_name: 'guy101112',
           full_name: 'Guy Largenum',
           password: 'PasswordA1!',
-          nickname: 'Big Guy'
         };
 
         const expectedResponse = {
           id: 5,
           full_name: 'Guy Largenum',
           user_name: 'guy101112',
-          nickname: 'Big Guy',
           date_created: '2019-03-29T02:04:15.098Z'
         };
 
