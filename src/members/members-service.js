@@ -35,7 +35,7 @@ const MembersService = {
         `lower(first_name) similar to '%(${query.join('|').toLowerCase()})%'`
       )
       .orWhereRaw(
-        `lower(last_name) similar to '%(${query.join('|').toLowerCase()})'`
+        `lower(last_name) similar to '%(${query.join('|').toLowerCase()})%'`
       );
 
     /*return db
@@ -46,9 +46,7 @@ const MembersService = {
   },
 
   getAllMembers(db) {
-    return db
-      .select('*')
-      .from('members');
+    return db.select('*').from('members');
   },
 
   getMembersByState(db, state) {
