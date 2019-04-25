@@ -9,26 +9,25 @@ const membersRouter = express.Router();
 
 // GET api/members/ with search compatability
 membersRouter.route('/').get((req, res, next) => {
-  const { state } = req.query;
-  const newSearch = { state };
-  console.log(newSearch);
+  // const { state } = req.query;
+	const newSearch = req.query;
+	
+  console.log('this is the state search term ', newSearch.query);
 
-  if (!req.body) {
+  if (!req.query) {
     MembersService.getAllMembers(req.app.get('db'))
       .then(members => {
         res.json(MembersService.serializeMembers(members));
       })
       .catch(next);
   } else {
-    if (newSearch.state) {
-      res.json(MembersService.getMemberByState(newSearch.state));
+    if (newSearch) {
+      res.json(
+				MembersService.serializeMembers(
+					MembersService.getMembersByState(newSearch.query)
+				)
+			);
     }
-    // 	if (firstname) {
-    // 		res.json(MembersService.getMemberByFirstName(firstname));
-    // 	}
-    // 	if (lastname) {
-    // 		res.json(MembersService.getMemberByLastName(lastname));
-    // 	}
   }
 });
 

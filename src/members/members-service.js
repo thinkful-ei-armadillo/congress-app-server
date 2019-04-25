@@ -1,11 +1,6 @@
 'use strict';
 const Treeize = require('treeize');
-const {
-  getSenatorObj,
-  getRepObj,
-  getBillObj,
-  getMembersObj
-} = require('../utils/extract');
+const { getBillObj, getMembersObj } = require('../utils/extract');
 
 const MembersService = {
   updateMembers(db, senate, house) {
@@ -33,7 +28,6 @@ const MembersService = {
   },
 
   searchMemberQuery(db, query) {
-    debugger;
     return db
       .select('*')
       .from('members')
@@ -52,22 +46,20 @@ const MembersService = {
   },
 
   getAllMembers(db) {
-    return db.select('*').from('members');
+    return db
+      .select('*')
+      .from('members');
   },
 
-  getMemberByState(db, state) {
-    return MembersService.getAllMembers(db).where('state', state);
+  getMembersByState(db, state) {
+    console.log(state);
+    return db
+      .select('*')
+      .from('members')
+      .whereIn('state', state);
   },
 
-  getMemberByFirstName(db, name) {
-    return MembersService.getAllMembers(db).where('first_name', name);
-  },
-
-  getMemberByLastName(db, name) {
-    return MembersService.getAllMembers(db).where('last_name', name);
-  },
-
-  getMemberByID(db, id) {
+  getMemberById(db, id) {
     return MembersService.getAllMembers(db)
       .where('id', id)
       .first();
@@ -98,6 +90,8 @@ const MembersService = {
       url: memberData.url,
       in_office: memberData.in_office,
       seniority: memberData.seniority,
+      // district: memberData.district,
+      // committees: memberData.committees,
       next_election: memberData.next_election,
       total_votes: memberData.total_votes,
       missed_votes: memberData.total_votes,
