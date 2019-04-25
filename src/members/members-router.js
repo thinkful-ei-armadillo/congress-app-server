@@ -22,11 +22,11 @@ membersRouter.route('/').get((req, res, next) => {
       .catch(next);
   } else {
     if (newSearch) {
-      res.json(
-				MembersService.serializeMembers(
-					MembersService.getMembersByState(newSearch.query)
-				)
-			);
+			MembersService.getMembersByState(req.app.get('db'), newSearch.query)
+			.then(members => {
+        res.json(MembersService.serializeMembers(members));
+			})
+			.catch(next);
     }
   }
 });

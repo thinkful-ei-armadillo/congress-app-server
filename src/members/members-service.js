@@ -59,7 +59,7 @@ const MembersService = {
       .whereIn('state', state);
   },
 
-  getMemberById(db, id) {
+  getMemberByID(db, id) {
     return MembersService.getAllMembers(db)
       .where('id', id)
       .first();
