@@ -6,19 +6,16 @@ function makeUsersArray() {
 		{
 			user_name: 'guy123',
 			full_name: 'Guy-Manuel de Homem-Cristo',
-			nickname: 'goldguy',
 			password: '$2y$12$Dv1ZTKh3pzW1QCjssNOMmuwjBClUiFbycwOwD73fx4RHAMn.4hx56'
 		},
 		{
 			user_name: 'guy456',
 			full_name: 'Garrett Douglas',
-			nickname: 'someguy',
 			password: '$2y$12$Dv1ZTKh3pzW1QCjssNOMmuwjBClUiFbycwOwD73fx4RHAMn.4hx56'
 		},
 		{
 			user_name: 'guy789',
 			full_name: 'Baker Mayfield',
-			nickname: 'ourguy',
 			password: '$2y$12$Dv1ZTKh3pzW1QCjssNOMmuwjBClUiFbycwOwD73fx4RHAMn.4hx56'
 		}
 	];
@@ -212,7 +209,6 @@ function makeExpectedThing(users, thing, reviews = []) {
 			id: user.id,
 			user_name: user.user_name,
 			full_name: user.full_name,
-			nickname: user.nickname,
 			date_created: user.date_created
 		}
 	};

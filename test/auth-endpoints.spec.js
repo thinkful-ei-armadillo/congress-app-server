@@ -43,7 +43,6 @@ describe('Auth Router Endpoints', () => {
           .send(loginAttemptBody)
           .expect(200, {
             authToken: expectedToken,
-            nickname: testUser.nickname,
             user_id: 1
           });
       });
