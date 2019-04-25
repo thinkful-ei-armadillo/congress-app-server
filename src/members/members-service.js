@@ -56,10 +56,10 @@ const MembersService = {
     return db
       .select('*')
       .from('members')
-      .where('state', state);
+      .whereIn('state', state);
   },
 
-  getMemberById(db, id) {
+  getMemberByID(db, id) {
     return MembersService.getAllMembers(db)
       .where('id', id)
       .first();
