@@ -56,7 +56,7 @@ const MembersService = {
     return db
       .select('*')
       .from('members')
-      .whereIn('state', state);
+      .where('state', state);
   },
 
   getMemberById(db, id) {
