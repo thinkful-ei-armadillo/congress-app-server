@@ -4,6 +4,7 @@ const getMembersObj = obj => {
   const {
     id,
     title,
+    short_title,
     first_name,
     middle_name,
     last_name,
@@ -37,6 +38,7 @@ const getMembersObj = obj => {
   return {
     id,
     title,
+    short_title,
     first_name,
     middle_name,
     last_name,

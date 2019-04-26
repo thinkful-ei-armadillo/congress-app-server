@@ -68,6 +68,7 @@ const MembersService = {
     return {
       id: memberData.id,
       title: memberData.title,
+      short_title: memberData.short_title,
       first_name: memberData.first_name,
       middle_name: memberData.middle_name,
       last_name: memberData.last_name,
