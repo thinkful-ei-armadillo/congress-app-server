@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS members (
   id TEXT,
   title TEXT,
+  short_title TEXT,
   first_name TEXT,
   middle_name TEXT,
   last_name TEXT,
