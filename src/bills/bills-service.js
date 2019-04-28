@@ -27,6 +27,7 @@ const BillsService = {
         'bill.latest_major_action',
         'bill.latest_major_action_date',
         'member.id as sponsor_id',
+        'member.short_title',
         'member.first_name',
         'member.last_name',
         'member.suffix',
@@ -54,6 +55,7 @@ const BillsService = {
       title: billData.title,
       member: {
         id: billData.sponsor_id,
+        short_title: billData.short_title,
         first_name: billData.first_name,
         last_name: billData.last_name,
         suffix: billData.suffix,
