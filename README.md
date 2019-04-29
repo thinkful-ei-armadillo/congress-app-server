@@ -11,11 +11,11 @@
 ### Client:
 
 - React w Context
-- React Hooks(?)
+- React Hooks
 - ZEIT Now
 
 ### Server:
 
 - Node.js
 - Express
-- SQL/NoSQL
+- SQL
