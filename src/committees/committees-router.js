@@ -52,7 +52,6 @@ committeesRouter.route("/seedCommittees").get(async (req, res, next) => {
           console.error(message);
           return res.status(404).send(message);
         }
-        console.log('house',data.results[0].committees)
         return data.results[0].committees;
       }),
       requestPromise({
@@ -69,7 +68,6 @@ committeesRouter.route("/seedCommittees").get(async (req, res, next) => {
           console.error(message);
           return res.status(404).send(message);
         }
-        console.log('joint',data.results[0].committees)
         return data.results[0].committees;
       })
     ]).then(data => {

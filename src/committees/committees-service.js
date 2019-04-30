@@ -5,6 +5,8 @@ const { getCommitteeObj } = require('../utils/extract');
 const CommitteesService = {
   updateCommittees(db, committees) {
     return Promise.all([
+      // db.table('members', function (table) { table.dropColumn('committee_chaired'); }),
+      db.table('members').dropColumn('committee_chaired'),
       db('committees').truncate(),
       ...committees.map(committee => {
         committee = getCommitteeObj(committee);
