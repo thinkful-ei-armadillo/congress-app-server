@@ -11,6 +11,7 @@ const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router');
 const billsRouter = require('./bills/bills-router');
 const top3sRouter = require('./top3s/top3s-router');
+const committeesRouter = require('./committees/committees-router');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/bills', billsRouter);
 app.use('/api/top3s', top3sRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/committees', committeesRouter);
 
 // cron.schedule('*/1 * * * *', () => {
 //   console.log('cron running');
