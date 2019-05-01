@@ -22,8 +22,18 @@ const CommitteesService = {
         'committee.committee_chamber',
         'committee.committee_url',
         'committee.committee_chair',
-        'committee.committee_chair_id'
+        'member.id as committee_chair_id',
+        'member.short_title',
+        'member.first_name',
+        'member.last_name',
+        'member.suffix',
+        'member.party',
+        'member.phone',
+        'member.fax',
+        'member.missed_votes_pct',
+        'member.votes_with_party_pct'
       )
+      .leftJoin('members AS member', 'committee_chair_id', 'member.id')
   },
 
   serializeCommittees(committees) {
@@ -39,8 +49,18 @@ const CommitteesService = {
       committee_name: committeeData.committee_name,
       committee_chamber: committeeData.committee_chamber,
       committee_url: committeeData.committee_url,
-      committee_chair: committeeData.committee_chair,
-      committee_chair_id: committeeData.committee_chair_id,
+      member: {
+        id: committeeData.committee_chair_id,
+        short_title: committeeData.short_title,
+        first_name: committeeData.first_name,
+        last_name: committeeData.last_name,
+        suffix: committeeData.suffix,
+        party: committeeData.party,
+        phone: committeeData.phone,
+        fax: committeeData.fax,
+        missed_votes_pct: committeeData.missed_votes_pct,
+        votes_with_party_pct: committeeData.votes_with_party_pct
+      }
     };
   }
 };
