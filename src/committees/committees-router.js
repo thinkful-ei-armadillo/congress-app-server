@@ -9,7 +9,7 @@ const committeesRouter = express.Router();
 //getall route
 
 committeesRouter.route("/").get((req, res, next) => {
-  CommittessService.getAllCommittess(req.app.get("db"))
+  CommitteesService.getAllCommittees(req.app.get("db"))
     .then(committees => {
       return res.json(CommitteesService.serializeCommittees(committees));
     })

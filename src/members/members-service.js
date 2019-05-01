@@ -42,7 +42,7 @@ const MembersService = {
   getAllMembers(db) {
     return db.select('*')
     .from('members')
-    .innerJoin('committees', 'committee_chair_id', '=', 'members.committee_chaired');
+    .innerJoin('committees', 'committee_chair_id', '=', 'members.id');
   },
 
   getMembersByState(db, state) {
@@ -99,8 +99,7 @@ const MembersService = {
       // senate_class: memberData.senate_class,
       // state_rank: memberData.state_rank,
       missed_votes_pct: memberData.missed_votes_pct,
-      votes_with_party_pct: memberData.votes_with_party_pct,
-      committee_chaired: memberData.committee_chaired
+      votes_with_party_pct: memberData.votes_with_party_pct
     };
   }
 };
