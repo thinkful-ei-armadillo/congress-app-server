@@ -267,4 +267,23 @@ const getBillObj = obj => {
   };
 };
 
-module.exports = { getSenatorObj, getRepObj, getBillObj, getMembersObj };
+const getCommitteeObj = obj => {
+  const {
+    id,
+    name,
+    chamber,
+    url,
+    chair,
+    chair_id
+  } = obj;
+  return {
+    committee_id: id,
+    committee_name: name,
+    committee_chamber: chamber,
+    committee_url: url,
+    committee_chair: chair,
+    committee_chair_id: chair_id
+  };
+};
+
+module.exports = { getSenatorObj, getRepObj, getBillObj, getMembersObj, getCommitteeObj };
