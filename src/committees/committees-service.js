@@ -17,12 +17,12 @@ const CommitteesService = {
     return db
       .from('committees AS committee')
       .select(
-        'committee.id',
-        'committee.name',
-        'committee.chamber',
-        'committee.url',
-        'committee.chair',
-        'committee.chair_id'
+        'committee.committee_id',
+        'committee.committee_name',
+        'committee.committee_chamber',
+        'committee.committee_url',
+        'committee.committee_chair',
+        'committee.committee_chair_id'
       )
   },
 
