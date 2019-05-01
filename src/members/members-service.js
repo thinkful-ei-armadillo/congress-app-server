@@ -42,7 +42,7 @@ const MembersService = {
   getAllMembers(db) {
     return db.select('*')
     .from('members')
-    .innerJoin('committees', 'committee_chair_id', '=', 'members.id');
+    .leftJoin('committees', 'committee_chair_id', 'members.id');
   },
 
   getMembersByState(db, state) {
