@@ -39,18 +39,8 @@ const CommitteesService = {
       committee_name: committeeData.committee_name,
       committee_chamber: committeeData.committee_chamber,
       committee_url: committeeData.committee_url,
-      member: {
-        id: committeeData.chair_id,
-        short_title: committeeData.short_title,
-        first_name: committeeData.first_name,
-        last_name: committeeData.last_name,
-        suffix: committeeData.suffix,
-        party: committeeData.party,
-        phone: committeeData.phone,
-        fax: committeeData.fax,
-        missed_votes_pct: committeeData.missed_votes_pct,
-        votes_with_party_pct: committeeData.votes_with_party_pct
-      }
+      committee_chair: committeeData.committee_chair,
+      committee_chair_id: committeeData.committee_chair_id,
     };
   }
 };
