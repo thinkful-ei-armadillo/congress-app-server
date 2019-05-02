@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const UsersService = require('./users-service');
+const MembersService = require('../members/members-service');
 
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
@@ -40,6 +41,18 @@ usersRouter.post('/', jsonBodyParser, (req, res, next) => {
       });
     })
     .catch(next);
+});
+
+usersRouter.route('/:id/followed').get((req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    UsersService.getFollowedMembers(req.app.get('db'),id).then(members => {
+      res.json(MembersService.serializeMembers(members));
+    });
+  } catch (e) {
+    next(e);
+  }
 });
 
 module.exports = usersRouter;

@@ -1,6 +1,7 @@
 'use strict';
 const xss = require('xss');
 const bcrypt = require('bcryptjs');
+const Treeize = require('treeize');
 
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
 
@@ -43,6 +44,14 @@ const UsersService = {
       user_name: xss(user.user_name),
       date_created: user.date_created
     };
+  },
+
+  getFollowedMembers(db, id) {
+    return db
+      .select('*')
+      .from('followers')
+      .where('user_id', id)
+      .innerJoin('members', 'member_id', '=', 'members.id');
   }
 };
 
