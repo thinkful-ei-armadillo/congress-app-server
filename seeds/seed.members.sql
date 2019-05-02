@@ -1,8 +1,6 @@
 -- psql -d congress -f ./seeds/seed.members.sql
 -- psql -d congress-test -f ./seeds/seed.members.sql
 
--- OWEN psql -d congress -U dev -f ./seeds/seed.members.sql
-
 BEGIN;
 
 TRUNCATE "senate", "house";
