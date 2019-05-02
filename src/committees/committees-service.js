@@ -1,6 +1,8 @@
 'use strict';
 const Treeize = require('treeize');
 const { getCommitteeObj } = require('../utils/extract');
+const requestPromise = require('request-promise');
+const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const CommitteesService = {
 	updateCommittees(db, committees) {
@@ -29,7 +31,7 @@ const CommitteesService = {
 					if (!data) {
 						const message = 'No Data';
 						console.error(message);
-						return res.status(404).send(message);
+						return
 					}
 
 					return data.results[0].committees;
@@ -46,7 +48,7 @@ const CommitteesService = {
 					if (!data) {
 						const message = 'No Data';
 						console.error(message);
-						return res.status(404).send(message);
+						return
 					}
 					return data.results[0].committees;
 				}),
@@ -62,21 +64,21 @@ const CommitteesService = {
 					if (!data) {
 						const message = 'No Data';
 						console.error(message);
-						return res.status(404).send(message);
+						return
 					}
 					return data.results[0].committees;
 				})
 			]).then(data => {
-				CommitteesService.updateCommittees(req.app.get('db'), [
+				CommitteesService.updateCommittees(db, [
 					...data[0],
 					...data[1],
 					...data[2]
 				]).then(result => {
-					res.sendStatus(200);
+					console.log('committees completed')
 				});
 			});
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
 	},
 
