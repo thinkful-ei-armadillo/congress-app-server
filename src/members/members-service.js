@@ -1,6 +1,8 @@
 'use strict';
 const Treeize = require('treeize');
 const { getBillObj, getMembersObj } = require('../utils/extract');
+const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
+const requestPromise = require('request-promise');
 
 const MembersService = {
   updateMembers(db, senate, house) {
@@ -15,6 +17,61 @@ const MembersService = {
         return db('members').insert({ ...member, type: 'SENATE' });
       })
     ]);
+  },
+
+  seedMembers(db) {
+    console.log('hello from seedMembers route!');
+    Promise.all([
+      requestPromise({
+        method: 'GET',
+        uri: `${PROPUBLICA_API}/116/senate/members.json`,
+        json: true,
+        headers: {
+          'X-API-Key': PROPUBLICA_APIKEY
+        },
+        rejectUnauthorized: false
+      })
+        .then(data => {
+          if (!data) {
+            const message = 'No Data';
+            console.error(message);
+            return;
+          }
+
+          return data.results[0].members;
+        })
+        .catch(e => {
+          console.log(e);
+        }),
+      requestPromise({
+        method: 'GET',
+        uri: `${PROPUBLICA_API}/116/house/members.json`,
+        json: true,
+        headers: {
+          'X-API-Key': PROPUBLICA_APIKEY
+        },
+        rejectUnauthorized: false
+      })
+        .then(data => {
+          if (!data) {
+            const message = 'No Data';
+            console.error(message);
+            return;
+          }
+          return data.results[0].members;
+        })
+        .catch(e => {
+          console.log(e);
+        })
+    ])
+      .then(data => {
+        MembersService.updateMembers(db, data[0], data[1]).then(result => {
+          console.log('complete');
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      });
   },
 
   updateBills(db, bills) {
