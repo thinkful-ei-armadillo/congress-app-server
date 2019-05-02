@@ -33,7 +33,8 @@ const getMembersObj = obj => {
     senate_class,
     state_rank,
     missed_votes_pct,
-    votes_with_party_pct
+    votes_with_party_pct,
+    user_id
   } = obj;
   return {
     id,
@@ -67,7 +68,8 @@ const getMembersObj = obj => {
     senate_class,
     state_rank,
     missed_votes_pct,
-    votes_with_party_pct
+    votes_with_party_pct,
+    user_id
   };
 };
 

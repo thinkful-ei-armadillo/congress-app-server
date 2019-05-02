@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS members (
-  id TEXT,
+  id TEXT PRIMARY KEY,
   title TEXT,
   short_title TEXT,
   first_name TEXT,
