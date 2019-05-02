@@ -36,12 +36,12 @@ app.use('/api/users', usersRouter);
 app.use('/api/committees', committeesRouter);
 
 //members seed (should be once a month)
-cron.schedule('* * * */1 * ', () => {
+cron.schedule('* * * * */1 ', () => {
   MembersService.seedMembers(app.get('db'));
 });
 
 //bills seed, should be daily
-cron.schedule('* * * */1 * ', () => {
+cron.schedule('* * * * */1 ', () => {
   BillsService.seedBills(app.get('db'));
 });
 
