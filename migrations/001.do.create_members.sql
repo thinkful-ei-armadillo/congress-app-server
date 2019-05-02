@@ -31,5 +31,6 @@ CREATE TABLE IF NOT EXISTS members (
   state_rank TEXT DEFAULT NULL,
   missed_votes_pct NUMERIC,
   votes_with_party_pct NUMERIC,
-  type TEXT
+  type TEXT,
+  user_id TEXT
 );
