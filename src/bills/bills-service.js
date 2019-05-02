@@ -1,6 +1,8 @@
 'use strict';
 const Treeize = require('treeize');
 const { getBillObj } = require('../utils/extract');
+const requestPromise = require('request-promise');
+const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('../config');
 
 const BillsService = {
   updateBills(db, bills) {
@@ -11,6 +13,36 @@ const BillsService = {
         return db('bills').insert({ ...bill });
       })
     ]);
+  },
+
+  async seedBills(db) {
+    try {
+      await Promise.all([
+        requestPromise({
+          method: 'GET',
+          uri: `${PROPUBLICA_API}/116/house/bills/introduced.json`,
+          json: true,
+          headers: {
+            'X-API-Key': PROPUBLICA_APIKEY
+          },
+          rejectUnauthorized: false
+        }).then(data => {
+          if (!data) {
+            const message = 'No Data';
+            console.error(message);
+            return;
+          }
+
+          BillsService.updateBills(db, data.results[0].bills).then(result => {
+            console.log('bills completed');
+          });
+        })
+      ]).then(data => {
+        console.log('completed');
+      });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   getAllBills(db) {

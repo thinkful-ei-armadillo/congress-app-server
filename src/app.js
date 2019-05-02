@@ -12,6 +12,9 @@ const usersRouter = require('./users/users-router');
 const billsRouter = require('./bills/bills-router');
 const top3sRouter = require('./top3s/top3s-router');
 const committeesRouter = require('./committees/committees-router');
+const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('./config');
+const MembersService = require('./members/members-service');
+const BillsService = require('./bills/bills-service');
 
 const app = express();
 
@@ -32,15 +35,15 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/committees', committeesRouter);
 
-// cron.schedule('*/1 * * * *', () => {
-//   console.log('cron running');
-//   debugger;
-//   app.runMiddleware('/api/members/seedMembers', { connection: {} }, function(
-//     response
-//   ) {
-//     console.log('members response', response);
-//   });
-// });
+//members seed (should be once a month)
+cron.schedule('* * * * */1 ', () => {
+  MembersService.seedMembers(app.get('db'));
+});
+
+//bills seed, should be daily
+cron.schedule('* * * * */1 ', () => {
+  BillsService.seedBills(app.get('db'));
+});
 
 // 4/24 "cannot read property pipescount of undefined"
 // let refreshMembers = cron.schedule('*/1 * * * *', () => {

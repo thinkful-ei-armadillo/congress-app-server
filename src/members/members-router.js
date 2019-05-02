@@ -32,7 +32,6 @@ membersRouter.route('/').get((req, res, next) => {
 });
 
 membersRouter.route('/search').get((req, res, next) => {
-  debugger;
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
 
@@ -43,7 +42,6 @@ membersRouter.route('/search').get((req, res, next) => {
     }
     MembersService.searchMemberQuery(req.app.get('db'), query.query.split(' '))
       .then(members => {
-        debugger;
         res.json(members);
       })
       .catch(next);
