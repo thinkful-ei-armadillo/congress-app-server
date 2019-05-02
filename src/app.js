@@ -15,6 +15,7 @@ const committeesRouter = require('./committees/committees-router');
 const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('./config');
 const MembersService = require('./members/members-service');
 const BillsService = require('./bills/bills-service');
+const CommitteesService = require('./committees/committees-service')
 
 const app = express();
 
@@ -43,6 +44,11 @@ cron.schedule('* * * * */1 ', () => {
 //bills seed, should be daily
 cron.schedule('* * * * */1 ', () => {
   BillsService.seedBills(app.get('db'));
+});
+
+// committees seed, should be (unknown period)
+cron.schedule('* * * * */1 ', () => {
+  CommitteesService.seedCommittees(app.get('db'));
 });
 
 // 4/24 "cannot read property pipescount of undefined"
