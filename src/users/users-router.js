@@ -43,16 +43,30 @@ usersRouter.post('/', jsonBodyParser, (req, res, next) => {
     .catch(next);
 });
 
-usersRouter.route('/:id/followed').get((req, res, next) => {
-  try {
-    const id = req.params.id;
+usersRouter
+  .route('/:id/followed')
+  .get((req, res, next) => {
+    try {
+      const id = req.params.id;
 
-    UsersService.getFollowedMembers(req.app.get('db'),id).then(members => {
-      res.json(MembersService.serializeMembers(members));
-    });
-  } catch (e) {
-    next(e);
-  }
-});
+      UsersService.getFollowedMembers(req.app.get('db'), id).then(members => {
+        res.json(MembersService.serializeMembers(members));
+      });
+    } catch (e) {
+      next(e);
+    }
+  })
+  .post(jsonBodyParser, (req, res, next) => {
+    const { member } = req.body;
+    try {
+      const id = req.params.id;
+      UsersService.addFollowedMembers(req.app.get('db'), id, member)
+      // .then(member => {
+      //   res.json(MembersService.serializeMember(member));
+      // });
+    } catch (e) {
+      next(e);
+    }
+  });
 
 module.exports = usersRouter;

@@ -52,7 +52,15 @@ const UsersService = {
       .from('followers')
       .where('user_id', id)
       .innerJoin('members', 'member_id', '=', 'members.id');
-  }
+  },
+
+  addFollowedMember(db, id, newMember) {
+    return db
+      .insert(newMember)
+      .into('followers')
+      .where('user_id', id)
+      .returning('*');
+  },
 };
 
 module.exports = UsersService;
