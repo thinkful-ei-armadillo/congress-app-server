@@ -52,6 +52,27 @@ const UsersService = {
       .from('followers')
       .where('user_id', id)
       .innerJoin('members', 'member_id', '=', 'members.id');
+  },
+
+  getFollowedMembersId(db, id) {
+    return db
+      .select('member_id')
+      .from('followers')
+      .where('user_id', id);
+  },
+
+  addFollowedMember(db, user_id, member_id) {
+    return db
+      .insert({user_id, member_id})
+      .into('followers')
+      .returning('*');
+  },
+
+  removeFollowedMember(db, member_id) {
+    return db
+      .from('followers')
+      .where('member_id', member_id)
+      .delete();
   }
 };
 
