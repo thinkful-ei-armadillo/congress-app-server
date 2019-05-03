@@ -17,52 +17,57 @@ membersRouter.route('/').get(async (req, res, next) => {
 	let { query = null, address = null } = req.query;
 
 	if (!query && !address) {
-		MembersService.getAllMembers(req.app.get('db'))
+		await MembersService.getAllMembers(req.app.get('db'))
 			.then(members => {
 				res.json(MembersService.serializeMembers(members));
 			})
 			.catch(next);
 	} else {
-		if (query) {
-			MembersService.getMembersByState(req.app.get('db'), query)
-				.then(members => {
-					res.json(MembersService.serializeMembers(members));
-				})
-				.catch(next);
-		}
-		if (address) {
-			requestPromise({
-				method: 'GET',
-				uri: `${GOOGLE_CIVIC_INFO_API}?address=${address}&key=${GOOGLE_CIVIC_INFO_APIKEY}&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody`,
-				headers: { Accept: 'application/json' }
-			})
-				.then(data => {
-					if (!data) {
-						const message = 'No Results for this Address, try again';
-						console.error(message);
-						return res.status(404).send(message);
-					} else {
-						data = JSON.parse(data);
-						let districtKey = Object.keys(data.divisions)[1];
-						let repDistrict = districtKey.split('/')[3].slice(-2);
-						let senState = districtKey.split('/')[2].slice(-2);
+		try {
+			if (query) {
+				let members = await MembersService.getMembersByState(
+					req.app.get('db'),
+					query
+				);
+				res.json(await MembersService.serializeMembers(members));
+			}
 
-						// maybe just get members by state then filter that result?
-						// await MembersService.getRepByDistrict(
-						// 	req.app.get('db'),
-						// 	repDistrict
-						// )
-						// await MembersService.getSenbyState(
-						// 	req.app.get('db'), senState
-						// )
-					}
-				})
-				.then(data => {
-					return res.sendStatus(200);
+			if (address) {
+				let data = await requestPromise({
+					method: 'GET',
+					uri: `${GOOGLE_CIVIC_INFO_API}?address=${address}&key=${GOOGLE_CIVIC_INFO_APIKEY}&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody`,
+					headers: { Accept: 'application/json' }
 				});
-			// request to civic information API with address
-			// will need state and district from response
-			// use returned district information to return house members matching district, and both state senator members
+				if (!data) {
+					const message = 'No Results for this Address, try again';
+					console.error(message);
+					return res.status(404).send(message);
+				} else {
+					data = JSON.parse(data);
+					let districtKey = Object.keys(data.divisions)[1];
+					let repDistrict = districtKey.split('/')[3].slice(-2);
+					let repState = districtKey
+						.split('/')[2]
+						.slice(-2)
+						.toUpperCase();
+
+					let stateReps = await MembersService.getMembersByState(
+						req.app.get('db'),
+						repState
+					);
+					let localRepresentatives = stateReps.filter((item, index) => {
+						if (item.district === repDistrict || item.short_title === 'Sen.') {
+							return true;
+						} else {
+							return false;
+						}
+					});
+					// at this point, localRepresentatives has the district specific rep and the state senators
+					return res.status(200).send(localRepresentatives);
+				}
+			}
+		} catch (e) {
+			next(e);
 		}
 	}
 });
