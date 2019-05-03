@@ -54,11 +54,10 @@ const UsersService = {
       .innerJoin('members', 'member_id', '=', 'members.id');
   },
 
-  addFollowedMember(db, id, newMember) {
+  addFollowedMember(db, user_id, member_id) {
     return db
-      .insert(newMember)
+      .insert({user_id, member_id})
       .into('followers')
-      .where('user_id', id)
       .returning('*');
   },
 };

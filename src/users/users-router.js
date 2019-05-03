@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const UsersService = require('./users-service');
 const MembersService = require('../members/members-service');
+const { requireAuth } = require('../middleware/jwt-auth');
 
 const usersRouter = express.Router();
 const jsonBodyParser = express.json();
@@ -56,15 +57,14 @@ usersRouter
       next(e);
     }
   })
-  .post(jsonBodyParser, (req, res, next) => {
-    const { member } = req.body;
+  .post(requireAuth, (req, res, next) => {
     try {
       const id = req.params.id;
-      UsersService.addFollowedMember(req.app.get('db'), id, member)
+      
+      UsersService.addFollowedMember(req.app.get('db'), req.user.id, id)
         .then(member => {
-          res
-            .status(201)
-            .json(MembersService.serializeMember(member));
+          console.log(member);
+          res.status(204);
         });
     } catch (e) {
       next(e);

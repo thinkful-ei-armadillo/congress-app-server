@@ -36,20 +36,20 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/committees', committeesRouter);
 
-//members seed (should be once a month)
-cron.schedule('* * * * */1 ', () => {
-  MembersService.seedMembers(app.get('db'));
-});
+// //members seed (should be once a month)
+// cron.schedule('* * * * */1 ', () => {
+//   MembersService.seedMembers(app.get('db'));
+// });
 
-//bills seed, should be daily
-cron.schedule('* * * * */1 ', () => {
-  BillsService.seedBills(app.get('db'));
-});
+// //bills seed, should be daily
+// cron.schedule('* * * * */1 ', () => {
+//   BillsService.seedBills(app.get('db'));
+// });
 
-// committees seed, should be (unknown period)
-cron.schedule('* * * * */1 ', () => {
-  CommitteesService.seedCommittees(app.get('db'));
-});
+// // committees seed, should be (unknown period)
+// cron.schedule('* * * * */1 ', () => {
+//   CommitteesService.seedCommittees(app.get('db'));
+// });
 
 // 4/24 "cannot read property pipescount of undefined"
 // let refreshMembers = cron.schedule('*/1 * * * *', () => {
