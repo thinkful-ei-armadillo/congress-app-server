@@ -60,10 +60,12 @@ usersRouter
     const { member } = req.body;
     try {
       const id = req.params.id;
-      UsersService.addFollowedMembers(req.app.get('db'), id, member)
-      // .then(member => {
-      //   res.json(MembersService.serializeMember(member));
-      // });
+      UsersService.addFollowedMember(req.app.get('db'), id, member)
+        .then(member => {
+          res
+            .status(201)
+            .json(MembersService.serializeMember(member));
+        });
     } catch (e) {
       next(e);
     }
