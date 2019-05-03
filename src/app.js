@@ -15,7 +15,7 @@ const committeesRouter = require('./committees/committees-router');
 const { PROPUBLICA_API, PROPUBLICA_APIKEY } = require('./config');
 const MembersService = require('./members/members-service');
 const BillsService = require('./bills/bills-service');
-const CommitteesService = require('./committees/committees-service')
+const CommitteesService = require('./committees/committees-service');
 
 const app = express();
 

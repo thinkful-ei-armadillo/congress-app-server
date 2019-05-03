@@ -20,7 +20,7 @@ const BillsService = {
       await Promise.all([
         requestPromise({
           method: 'GET',
-          uri: `${PROPUBLICA_API}/116/house/bills/introduced.json`,
+          uri: `${PROPUBLICA_API}/116/both/bills/introduced.json`,
           json: true,
           headers: {
             'X-API-Key': PROPUBLICA_APIKEY
@@ -33,12 +33,29 @@ const BillsService = {
             return;
           }
 
-          BillsService.updateBills(db, data.results[0].bills).then(result => {
-            console.log('bills completed');
-          });
+          return data.results[0].bills;
+        }),
+        requestPromise({
+          method: 'GET',
+          uri: `${PROPUBLICA_API}/116/both/bills/active.json`,
+          json: true,
+          headers: {
+            'X-API-Key': PROPUBLICA_APIKEY
+          },
+          rejectUnauthorized: false
+        }).then(data => {
+          if (!data) {
+            const message = 'No Data';
+            console.error(message);
+            return;
+          }
+
+          return data.results[0].bills;
         })
       ]).then(data => {
-        console.log('completed');
+        BillsService.updateBills(db, [...data[0], ...data[1]]).then(result => {
+          console.log('completed bills seed');
+        });
       });
     } catch (e) {
       console.log(e);
@@ -69,6 +86,62 @@ const BillsService = {
         'member.missed_votes_pct',
         'member.votes_with_party_pct'
       )
+      .leftJoin('members AS member', 'bill.sponsor_id', 'member.id');
+  },
+
+  getIntroducedBills(db) {
+    return db
+      .from('bills AS bill')
+      .select(
+        'bill.bill_id',
+        'bill.bill_type',
+        'bill.title',
+        'bill.bill_uri',
+        'bill.govtrack_url',
+        'bill.introduced_date',
+        'bill.primary_subject',
+        'bill.latest_major_action',
+        'bill.latest_major_action_date',
+        'member.id as sponsor_id',
+        'member.short_title',
+        'member.first_name',
+        'member.last_name',
+        'member.suffix',
+        'member.party',
+        'member.phone',
+        'member.fax',
+        'member.missed_votes_pct',
+        'member.votes_with_party_pct'
+      )
+      .where('active', '=', false)
+      .leftJoin('members AS member', 'bill.sponsor_id', 'member.id');
+  },
+
+  getActiveBills(db) {
+    return db
+      .from('bills AS bill')
+      .select(
+        'bill.bill_id',
+        'bill.bill_type',
+        'bill.title',
+        'bill.bill_uri',
+        'bill.govtrack_url',
+        'bill.introduced_date',
+        'bill.primary_subject',
+        'bill.latest_major_action',
+        'bill.latest_major_action_date',
+        'member.id as sponsor_id',
+        'member.short_title',
+        'member.first_name',
+        'member.last_name',
+        'member.suffix',
+        'member.party',
+        'member.phone',
+        'member.fax',
+        'member.missed_votes_pct',
+        'member.votes_with_party_pct'
+      )
+      .where('active', '=', true)
       .leftJoin('members AS member', 'bill.sponsor_id', 'member.id');
   },
 
