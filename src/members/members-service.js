@@ -104,7 +104,6 @@ const MembersService = {
   },
 
   getMembersByState(db, state) {
-    console.log(state);
     return db
       .select('*')
       .from('members')

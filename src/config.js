@@ -8,5 +8,9 @@ module.exports = {
   JWT_EXPIRY: process.env.JWT_EXPIRY || '3h',
   PROPUBLICA_API:
 		process.env.PROPUBURL || 'https://api.propublica.org/congress/v1',
-  PROPUBLICA_APIKEY: process.env.PROPUBLICA_APIKEY
+  PROPUBLICA_APIKEY: process.env.PROPUBLICA_APIKEY,
+  GOOGLE_CIVIC_INFO_API:
+		process.env.GOOGLE_CIVIC_INFO_API ||
+		'https://www.googleapis.com/civicinfo/v2/representatives',
+  GOOGLE_CIVIC_INFO_APIKEY: process.env.GOOGLE_CIVIC_INFO_APIKEY
 };
