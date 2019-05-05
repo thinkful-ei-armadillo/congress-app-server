@@ -46,6 +46,9 @@ membersRouter.route('/').get(async (req, res, next) => {
 					data = JSON.parse(data);
 					let districtKey = Object.keys(data.divisions)[1];
 					let repDistrict = districtKey.split('/')[3].slice(-2);
+					if (repDistrict.charAt(0) === ':'){
+						repDistrict = repDistrict.slice(1)
+					}
 					let repState = districtKey
 						.split('/')[2]
 						.slice(-2)
