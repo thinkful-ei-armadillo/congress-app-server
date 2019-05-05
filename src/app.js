@@ -12,6 +12,9 @@ const usersRouter = require('./users/users-router');
 const billsRouter = require('./bills/bills-router');
 const top3sRouter = require('./top3s/top3s-router');
 const committeesRouter = require('./committees/committees-router');
+const MembersService = require('./members/members-service');
+const BillsService = require('./bills/bills-service');
+const CommitteesService = require('./committees/committees-service');
 const app = express();
 
 require('run-middleware')(app);
@@ -31,7 +34,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/committees', committeesRouter);
 
-// //members seed (should be once a month)
+//members seed (should be once a month)
 // cron.schedule('* * * * */1 ', () => {
 //   MembersService.seedMembers(app.get('db'));
 // });
@@ -41,7 +44,7 @@ app.use('/api/committees', committeesRouter);
 //   BillsService.seedBills(app.get('db'));
 // });
 
-// // committees seed, should be (unknown period)
+// //committees seed, should be (unknown period)
 // cron.schedule('* * * * */1 ', () => {
 //   CommitteesService.seedCommittees(app.get('db'));
 // });
