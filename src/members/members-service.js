@@ -102,7 +102,6 @@ const MembersService = {
     .leftJoin('committees', 'committee_chair_id', '=', 'members.id');
   },
   getMembersByState(db, state) {
-    console.log(state);
     return db
       .select('*')
       .from('members')
