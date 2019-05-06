@@ -26,8 +26,10 @@ describe('Auth Router Endpoints', () => {
   afterEach('cleanup', () => helpers.cleanTables(db));
 
   describe('POST /auth/login', () => {
-    context('given some users', () => {
+
+    context('Given a user logs in', () => {
       beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
+
       it('authenticates username/password on POST /auth/login', () => {
         const loginAttemptBody = {
           user_name: testUser.user_name,
@@ -48,8 +50,39 @@ describe('Auth Router Endpoints', () => {
             user_id: 1
           });
       });
+
+      it('responds 400 \'invalid user_name or password\' when bad user_name', () => {
+        const userInvalidUser = {
+          user_name: 'user-not',
+          password: 'existy'
+        };
+        return supertest(app)
+          .post('/api/auth/login')
+          .send(userInvalidUser)
+          .expect(400, {
+            error: 'Incorrect user_name or password'
+          });
+      });
+
+      it('responds 400 \'invalid user_name or password\' when bad password', () => {
+        const userInvalidPass = {
+          user_name: testUser.user_name,
+          password: 'incorrect'
+        };
+        return supertest(app)
+          .post('/api/auth/login')
+          .send(userInvalidPass)
+          .expect(400, {
+            error: 'Incorrect user_name or password'
+          });
+      });
+
+      
+
       describe('POST /auth/refresh', () => {
-        context('given an authorized user', () => {
+
+        context('Given an authorized user is still using the application', () => {
+          
           it('sends a new JWT on POST with authorized credentials', () => {
             const expectedToken = jwt.sign(
               { user_id: 1 },

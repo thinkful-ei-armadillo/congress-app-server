@@ -1,6 +1,7 @@
 'use strict';
 const app = require('../src/app');
 const helpers = require('./test-helpers');
+const bcrypt = require('bcryptjs');
 const knex = require('knex');
 const { expect } = require('chai');
 const supertest = require('supertest');
@@ -8,6 +9,8 @@ const supertest = require('supertest');
 describe('Users Router Endpoints', () => {
   let db;
 
+  const { testUsers } = helpers.makeCongressFixtures();
+  const testUser = testUsers[0];
 
   before('make knex instance', () => {
     db = knex({
@@ -24,26 +27,144 @@ describe('Users Router Endpoints', () => {
   afterEach('cleanup', () => helpers.cleanTables(db));
 
   describe('POST /users', () => {
-    context('given a valid new user registration', () => {
-      it('returns the new user on POST /users', () => {
+
+    context('Given an invalid new user registration', () => {
+      beforeEach('insert users', () =>
+        helpers.seedUsers(
+          db,
+          testUsers
+        )
+      );
+
+      const requiredFields = ['user_name', 'password', 'full_name'];
+
+      requiredFields.forEach(field => {
+        const registerAttemptBody = {
+          user_name: 'test user_name',
+          password: 'test password',
+          full_name: 'test full_name',
+        };
+
+        it(`responds with 400 required error when '${field}' is missing`, () => {
+          delete registerAttemptBody[field];
+
+          return supertest(app)
+            .post('/api/users')
+            .send(registerAttemptBody)
+            .expect(400, {
+              error: `Missing '${field}' in request body`,
+            });
+        });
+      });
+
+      it('responds 400 \'Password is longer than 8 characters\' when empty password', () => {
+        const userShortPassword = {
+          user_name: 'test user_name',
+          password: '1234567',
+          full_name: 'test full_name',
+        };
+        return supertest(app)
+          .post('/api/users')
+          .send(userShortPassword)
+          .expect(400, { error: 'Password is longer than 8 characters' });
+      });
+
+      it('responds 400 \'Password is less than 72 characters\' when long password', () => {
+        const userLongPassword = {
+          user_name: 'test user_name',
+          password: '*'.repeat(73),
+          full_name: 'test full_name',
+        };
+        return supertest(app)
+          .post('/api/users')
+          .send(userLongPassword)
+          .expect(400, { error: 'Password is less than 72 characters' });
+      });
+
+      it('responds 400 error when password stdbrs with spaces', () => {
+        const userPasswordStartsSpaces = {
+          user_name: 'test user_name',
+          password: ' 1Aa!2Bb@',
+          full_name: 'test full_name',
+        };
+        return supertest(app)
+          .post('/api/users')
+          .send(userPasswordStartsSpaces)
+          .expect(400, { error: 'Password must not start or end with empty spaces' });
+      });
+
+      it('responds 400 error when password ends with spaces', () => {
+        const userPasswordEndsSpaces = {
+          user_name: 'test user_name',
+          password: '1Aa!2Bb@ ',
+          full_name: 'test full_name',
+        };
+        return supertest(app)
+          .post('/api/users')
+          .send(userPasswordEndsSpaces)
+          .expect(400, { error: 'Password must not start or end with empty spaces' });
+      });
+
+      it('responds 400 error when password isn\'t complex enough', () => {
+        const userPasswordNotComplex = {
+          user_name: 'test user_name',
+          password: '11AAaabb',
+          full_name: 'test full_name',
+        };
+        return supertest(app)
+          .post('/api/users')
+          .send(userPasswordNotComplex)
+          .expect(400, { error: 'Password must contain one upper case, lower case, number and special character' });
+      });
+
+      it('responds 400 \'User name already taken\' when user_name isn\'t unique', () => {
+        const duplicateUser = {
+          user_name: testUser.user_name,
+          password: '11AAaa!!',
+          full_name: 'test full_name',
+        };
+        return supertest(app)
+          .post('/api/users')
+          .send(duplicateUser)
+          .expect(400, { error: 'Username already taken' });
+      });
+    });
+
+    context('Given a valid new user registration', () => {
+      it('responds 201, serialized user, storing bcryped password', () => {
         const newUser = {
-          user_name: 'guy101112',
-          full_name: 'Guy Largenum',
-          password: 'PasswordA1!',
+          user_name: 'test user_name',
+          password: '11AAaa!!',
+          full_name: 'test full_name',
         };
-
-        const expectedResponse = {
-          id: 5,
-          full_name: 'Guy Largenum',
-          user_name: 'guy101112',
-          date_created: '2019-03-29T02:04:15.098Z'
-        };
-
-        supertest(app)
+        return supertest(app)
           .post('/api/users')
           .send(newUser)
-          .expect(200)
-          .expect(res => expect(res.body).to.equal(expectedResponse));
+          .expect(201)
+          .expect(res => {
+            expect(res.body).to.have.property('id');
+            expect(res.body.user_name).to.eql(newUser.user_name);
+            expect(res.body.full_name).to.eql(newUser.full_name);
+            expect(res.body).to.not.have.property('password');
+            expect(res.headers.location).to.eql(`/api/users/${res.body.id}`);
+            
+          })
+          .expect(res =>
+            db
+              .from('users')
+              .select('*')
+              .where({ id: res.body.id })
+              .first()
+              .then(row => {
+                expect(row.user_name).to.eql(newUser.user_name);
+                expect(row.full_name).to.eql(newUser.full_name);
+
+                return bcrypt.compare(newUser.password, row.password);
+              })
+              .then(compareMatch => {
+                expect(compareMatch).to.be.true;
+              })
+          );
       });
     });
   });

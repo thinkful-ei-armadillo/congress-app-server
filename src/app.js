@@ -40,9 +40,9 @@ app.use('/api/committees', committeesRouter);
 // });
 
 //bills seed, should be daily
-cron.schedule('* * * * */1 ', () => {
-  BillsService.seedBills(app.get('db'));
-});
+// cron.schedule('* * * * */1 ', () => {
+//   BillsService.seedBills(app.get('db'));
+// });
 
 // //committees seed, should be (unknown period)
 // cron.schedule('* * * * */1 ', () => {
