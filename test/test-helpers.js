@@ -144,64 +144,91 @@ function makeBillsArray() {
   // latest_major_action TEXT
 	return [
 		{
-			id: 1,
-			name: 'cow',
-			description: 'a cow',
-			impact: 7
+			bill_id: '1',
+			bill_type: 'bill',
+			number: '2',
+			bill_uri: 'http://cow.com/bill/text',
+			title: 'cow people should live as equals',
+			sponsor_id: '2',
+			sponsor_name: 'cow',
+			sponsor_state: 'tejas',
+			sponsor_uri: 'http://cow.com/sponsor',
+			gpo_pdf_uri: 'http://cowpdf.com',
+			congressdotgov_url: 'http://cowcongress.com',
+			govtrack_url: 'http://cow.com',
+			introduced_date: '2',
+			active: true,
+			house_passage: 'yes',
+			senate_passage: 'yes',
+			enacted: 'yes',
+			vetoed: 'no',
+			cosponsors: 2,
+			committees: 'farm committee',
+			committee_codes: '1',
+			subcommittee_codes: '1',
+			primary_subject: 'cow',
+			summary: 'a cow bill',
+			summary_short: 'a cow',
+			latest_major_action_date: '5 days ago',
+			latest_major_action: 'referred'
 		},
 		{
-			id: 2,
-			name: 'pig',
-			description: 'a pig',
-			impact: 6
+			bill_id: '1',
+			bill_type: 'bill',
+			number: '2',
+			bill_uri: 'http://cow.com/bill/text',
+			title: 'cow people should live as equals',
+			sponsor_id: '2',
+			sponsor_name: 'cow',
+			sponsor_state: 'tejas',
+			sponsor_uri: 'http://cow.com/sponsor',
+			gpo_pdf_uri: 'http://cowpdf.com',
+			congressdotgov_url: 'http://cowcongress.com',
+			govtrack_url: 'http://cow.com',
+			introduced_date: '2',
+			active: true,
+			house_passage: 'yes',
+			senate_passage: 'yes',
+			enacted: 'yes',
+			vetoed: 'no',
+			cosponsors: 2,
+			committees: 'farm committee',
+			committee_codes: '1',
+			subcommittee_codes: '1',
+			primary_subject: 'cow',
+			summary: 'a cow bill',
+			summary_short: 'a cow',
+			latest_major_action_date: '5 days ago',
+			latest_major_action: 'referred'
 		},
 		{
-			id: 3,
-			name: 'chicken',
-			description: 'a chicken',
-			impact: 2
-		},
-		{
-			id: 4,
-			name: 'turkey',
-			description: 'a turkey',
-			impact: 3
-		},
-		{
-			id: 5,
-			name: 'cow5',
-			description: 'a cow',
-			impact: 2
-		},
-		{
-			id: 6,
-			name: 'cow6',
-			description: 'desciption',
-			impact: 7
-		},
-		{
-			id: 7,
-			name: 'cow7',
-			description: 'deskiptio',
-			impact: 2
-		},
-		{
-			id: 8,
-			name: 'cow8',
-			description: 'descripto',
-			impact: 2
-		},
-		{
-			id: 9,
-			name: 'cow9',
-			description: 'desukuripushunnu',
-			impact: 2
-		},
-		{
-			id: 10,
-			name: 'cow0',
-			description: 'wow',
-			impact: 2
+			bill_id: '1',
+			bill_type: 'bill',
+			number: '2',
+			bill_uri: 'http://cow.com/bill/text',
+			title: 'cow people should live as equals',
+			sponsor_id: '2',
+			sponsor_name: 'cow',
+			sponsor_state: 'tejas',
+			sponsor_uri: 'http://cow.com/sponsor',
+			gpo_pdf_uri: 'http://cowpdf.com',
+			congressdotgov_url: 'http://cowcongress.com',
+			govtrack_url: 'http://cow.com',
+			introduced_date: '2',
+			active: true,
+			house_passage: 'yes',
+			senate_passage: 'yes',
+			enacted: 'yes',
+			vetoed: 'no',
+			cosponsors: 2,
+			committees: 'farm committee',
+			committee_codes: '1',
+			subcommittee_codes: '1',
+			primary_subject: 'cow',
+			summary: 'a cow bill',
+			summary_short: 'a cow',
+			latest_major_action_date: '5 days ago',
+			latest_major_action: 'referred'
 		}
 	];
 }
@@ -279,6 +306,19 @@ function makeExpectedThing(users, thing, reviews = []) {
 	};
 }
 
+
+function makeExpectedBill(bills, expectedBill) {
+	const bill = bills.find(bill => expectedBill.bill_id === bill.bill_id)
+
+	return {
+		id: bill.bill_id,
+		title: bill.title,
+		sponsor_id: bill.sponsor_id,
+		summary: bill.summary
+	}
+}
+
+
 function makeCongressFixtures() {
 	const testUsers = makeUsersArray();
 	const testMembers = makeMembersArray();
@@ -316,17 +356,17 @@ function seedUsers(db, users) {
 
 function seedCongressTables(
 	db,
-	brands = [],
-	ingredients = [],
-	foods = [],
+	members = [],
+	bills = [],
+	committees = [],
 	users = [],
-	ratings = []
+	followers = []
 ) {
 	return seedUsers(db, users)
-		.then(() => db.into('brands').insert(brands))
-		.then(() => db.into('ingredients').insert(ingredients))
-		.then(() => db.into('foods').insert(foods))
-		.then(() => db.into('ratings').insert(ratings));
+		.then(() => db.into('members').insert(members))
+		.then(() => db.into('bills').insert(bills))
+		.then(() => db.into('committees').insert(committees))
+		.then(() => db.into('followers').insert(followers));
 }
 
 function seedMaliciousThing(db, user, thing) {
