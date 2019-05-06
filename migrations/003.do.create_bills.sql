@@ -26,4 +26,4 @@ CREATE TABLE IF NOT EXISTS bills (
   summary_short TEXT,
   latest_major_action_date TEXT,
   latest_major_action TEXT
-)
+);

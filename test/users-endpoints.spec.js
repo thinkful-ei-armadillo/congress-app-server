@@ -1,17 +1,13 @@
+'use strict';
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 const knex = require('knex');
+const { expect } = require('chai');
+const supertest = require('supertest');
 
 describe('Users Router Endpoints', () => {
   let db;
 
-  const {
-    testUsers,
-    testFoods,
-    testIngredients,
-    testRatings,
-    testBrands
-  } = helpers.makePetFoodsFixtures();
 
   before('make knex instance', () => {
     db = knex({

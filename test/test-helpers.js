@@ -21,7 +21,42 @@ function makeUsersArray() {
 	];
 }
 
-function makeFoodsArray() {
+function makeMembersArray() {
+	// fields to add:
+	// id TEXT PRIMARY KEY,
+  // title TEXT,
+  // short_title TEXT,
+  // first_name TEXT,
+  // middle_name TEXT,
+  // last_name TEXT,
+  // suffix TEXT,
+  // date_of_birth TEXT,
+  // party TEXT,
+  // leadership_role TEXT,
+  // twitter_account TEXT,
+  // facebook_account TEXT,
+  // youtube_account TEXT,
+  // govtrack_id INTEGER,
+  // url TEXT,
+  // in_office BOOLEAN,
+  // seniority INTEGER,
+  // district TEXT DEFAULT NULL,
+  // committees TEXT DEFAULT NULL,
+  // next_election INTEGER,
+  // total_votes INTEGER,
+  // missed_votes INTEGER,
+  // total_present INTEGER, -- 'present' votes rather than yea or nay
+  // last_updated TEXT,
+  // office TEXT,
+  // phone TEXT,
+  // fax TEXT,
+  // state TEXT,
+  // senate_class INTEGER DEFAULT NULL,
+  // state_rank TEXT DEFAULT NULL,
+  // missed_votes_pct NUMERIC,
+  // votes_with_party_pct NUMERIC,
+	// type TEXT
+	
 	return [
 		{
 			id: 1,
@@ -78,7 +113,35 @@ function makeFoodsArray() {
 	];
 }
 
-function makeIngredientsArray() {
+function makeBillsArray() {
+	// fields to add:
+	// bill_id TEXT,
+  // bill_type TEXT,
+  // number TEXT,
+  // bill_uri TEXT,
+  // title TEXT,
+  // sponsor_id TEXT,
+  // sponsor_name TEXT,
+  // sponsor_state TEXT,
+  // sponsor_uri TEXT,
+  // gpo_pdf_uri TEXT,
+  // congressdotgov_url TEXT,
+  // govtrack_url TEXT,
+  // introduced_date TEXT,
+  // active BOOLEAN,
+  // house_passage TEXT,
+  // senate_passage TEXT,
+  // enacted TEXT,
+  // vetoed TEXT,
+  // cosponsors INTEGER,
+  // committees TEXT,
+  // committee_codes TEXT,
+  // subcommittee_codes TEXT,
+  // primary_subject TEXT,
+  // summary TEXT,
+  // summary_short TEXT,
+  // latest_major_action_date TEXT,
+  // latest_major_action TEXT
 	return [
 		{
 			id: 1,
@@ -143,7 +206,14 @@ function makeIngredientsArray() {
 	];
 }
 
-function makeRatingsArray() {
+function makeCommitteesArray() {
+	// fields to add:
+	// committee_id TEXT,
+  // committee_name TEXT,
+  // committee_chamber TEXT,
+  // committee_url TEXT,
+  // committee_chair TEXT,
+  // committee_chair_id TEXT
 	return [
 		{ rating: 1, userid: 1, foodid: 1 },
 		{ rating: 1, userid: 1, foodid: 2 },
@@ -160,7 +230,10 @@ function makeRatingsArray() {
 	];
 }
 
-function makeSumOfRatingsArray() {
+function makeFollowersArray() {
+	//fields to add:
+	// user_id INTEGER 
+	// member_id TEXT 
 	return [
 		{
 			rating: '1',
@@ -178,14 +251,6 @@ function makeSumOfRatingsArray() {
 			rating: '-1',
 			foodid: 1
 		}
-	];
-}
-
-function makeBrandsArray() {
-	return [
-		{ company: 'Royal Canin' },
-		{ company: 'Purina Pro Plan' },
-		{ company: 'Weruva' }
 	];
 }
 
@@ -214,32 +279,30 @@ function makeExpectedThing(users, thing, reviews = []) {
 	};
 }
 
-function makePetFoodsFixtures() {
+function makeCongressFixtures() {
 	const testUsers = makeUsersArray();
-	const testFoods = makeFoodsArray();
-	const testIngredients = makeIngredientsArray();
-	const testSumOfRatings = makeSumOfRatingsArray();
-	const testRatings = makeRatingsArray();
-	const testBrands = makeBrandsArray();
+	const testMembers = makeMembersArray();
+	const testBills = makeBillsArray();
+	const testCommittees = makeCommitteesArray();
+	const testFollowers = makeFollowersArray();
+
 	return {
 		testUsers,
-		testFoods,
-		testIngredients,
-		testRatings,
-		testSumOfRatings,
-		testBrands
+		testMembers,
+		testBills,
+		testCommittees,
+		testFollowers
 	};
 }
 
 function cleanTables(db) {
 	return db.raw(
 		`TRUNCATE
-  ratings,
-  ingredients,
-  brands,
-  users,
-  foods
-  RESTART IDENTITY CASCADE;`
+			bills,
+			committees,
+			followers,
+			members,
+			users;`
 	);
 }
 
@@ -251,7 +314,7 @@ function seedUsers(db, users) {
 	return db.into('users').insert(preppedUsers);
 }
 
-function seedPetFoodsTables(
+function seedCongressTables(
 	db,
 	brands = [],
 	ingredients = [],
@@ -282,15 +345,14 @@ function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
 
 module.exports = {
 	makeUsersArray,
-	makeFoodsArray,
-	makeIngredientsArray,
-	makeSumOfRatingsArray,
-	makeBrandsArray,
-
-	makePetFoodsFixtures,
+	makeMembersArray,
+	makeBillsArray,
+	makeCommitteesArray,
+	makeFollowersArray,
+	makeCongressFixtures,
 	cleanTables,
 	seedUsers,
-	seedPetFoodsTables,
+	seedCongressTables,
 	seedMaliciousThing,
 	makeAuthHeader
 };

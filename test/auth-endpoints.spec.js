@@ -1,12 +1,14 @@
+'use strict';
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 const knex = require('knex');
 const jwt = require('jsonwebtoken');
+const supertest = require('supertest');
 
 describe('Auth Router Endpoints', () => {
   let db;
 
-  const { testUsers } = helpers.makePetFoodsFixtures();
+  const { testUsers } = helpers.makeCongressFixtures();
   const testUser = testUsers[0];
 
   before('make knex instance', () => {
