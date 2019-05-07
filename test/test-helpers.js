@@ -114,94 +114,93 @@ function makeMembersArray() {
 }
 
 function makeBillsArray() {
-	// fields to add:
-	// bill_id TEXT,
-  // bill_type TEXT,
-  // number TEXT,
-  // bill_uri TEXT,
-  // title TEXT,
-  // sponsor_id TEXT,
-  // sponsor_name TEXT,
-  // sponsor_state TEXT,
-  // sponsor_uri TEXT,
-  // gpo_pdf_uri TEXT,
-  // congressdotgov_url TEXT,
-  // govtrack_url TEXT,
-  // introduced_date TEXT,
-  // active BOOLEAN,
-  // house_passage TEXT,
-  // senate_passage TEXT,
-  // enacted TEXT,
-  // vetoed TEXT,
-  // cosponsors INTEGER,
-  // committees TEXT,
-  // committee_codes TEXT,
-  // subcommittee_codes TEXT,
-  // primary_subject TEXT,
-  // summary TEXT,
-  // summary_short TEXT,
-  // latest_major_action_date TEXT,
-  // latest_major_action TEXT
 	return [
 		{
-			id: 1,
-			name: 'cow',
-			description: 'a cow',
-			impact: 7
+			bill_id: '1',
+			bill_type: 'bill',
+			number: '2',
+			bill_uri: 'http://cow.com/bill/text',
+			title: 'cow people should live as equals',
+			sponsor_id: '2',
+			sponsor_name: 'cow',
+			sponsor_state: 'tejas',
+			sponsor_uri: 'http://cow.com/sponsor',
+			gpo_pdf_uri: 'http://cowpdf.com',
+			congressdotgov_url: 'http://cowcongress.com',
+			govtrack_url: 'http://cow.com',
+			introduced_date: '2',
+			active: true,
+			house_passage: 'yes',
+			senate_passage: 'yes',
+			enacted: 'yes',
+			vetoed: 'no',
+			cosponsors: 2,
+			committees: 'farm committee',
+			committee_codes: '1',
+			subcommittee_codes: '1',
+			primary_subject: 'cow',
+			summary: 'a cow bill',
+			summary_short: 'a cow',
+			latest_major_action_date: '5 days ago',
+			latest_major_action: 'referred'
 		},
 		{
-			id: 2,
-			name: 'pig',
-			description: 'a pig',
-			impact: 6
+			bill_id: '1',
+			bill_type: 'bill',
+			number: '2',
+			bill_uri: 'http://cow.com/bill/text',
+			title: 'cow people should live as equals',
+			sponsor_id: '2',
+			sponsor_name: 'cow',
+			sponsor_state: 'tejas',
+			sponsor_uri: 'http://cow.com/sponsor',
+			gpo_pdf_uri: 'http://cowpdf.com',
+			congressdotgov_url: 'http://cowcongress.com',
+			govtrack_url: 'http://cow.com',
+			introduced_date: '2',
+			active: true,
+			house_passage: 'yes',
+			senate_passage: 'yes',
+			enacted: 'yes',
+			vetoed: 'no',
+			cosponsors: 2,
+			committees: 'farm committee',
+			committee_codes: '1',
+			subcommittee_codes: '1',
+			primary_subject: 'cow',
+			summary: 'a cow bill',
+			summary_short: 'a cow',
+			latest_major_action_date: '5 days ago',
+			latest_major_action: 'referred'
 		},
 		{
-			id: 3,
-			name: 'chicken',
-			description: 'a chicken',
-			impact: 2
-		},
-		{
-			id: 4,
-			name: 'turkey',
-			description: 'a turkey',
-			impact: 3
-		},
-		{
-			id: 5,
-			name: 'cow5',
-			description: 'a cow',
-			impact: 2
-		},
-		{
-			id: 6,
-			name: 'cow6',
-			description: 'desciption',
-			impact: 7
-		},
-		{
-			id: 7,
-			name: 'cow7',
-			description: 'deskiptio',
-			impact: 2
-		},
-		{
-			id: 8,
-			name: 'cow8',
-			description: 'descripto',
-			impact: 2
-		},
-		{
-			id: 9,
-			name: 'cow9',
-			description: 'desukuripushunnu',
-			impact: 2
-		},
-		{
-			id: 10,
-			name: 'cow0',
-			description: 'wow',
-			impact: 2
+			bill_id: '1',
+			bill_type: 'bill',
+			number: '2',
+			bill_uri: 'http://cow.com/bill/text',
+			title: 'cow people should live as equals',
+			sponsor_id: '2',
+			sponsor_name: 'cow',
+			sponsor_state: 'tejas',
+			sponsor_uri: 'http://cow.com/sponsor',
+			gpo_pdf_uri: 'http://cowpdf.com',
+			congressdotgov_url: 'http://cowcongress.com',
+			govtrack_url: 'http://cow.com',
+			introduced_date: '2',
+			active: true,
+			house_passage: 'yes',
+			senate_passage: 'yes',
+			enacted: 'yes',
+			vetoed: 'no',
+			cosponsors: 2,
+			committees: 'farm committee',
+			committee_codes: '1',
+			subcommittee_codes: '1',
+			primary_subject: 'cow',
+			summary: 'a cow bill',
+			summary_short: 'a cow',
+			latest_major_action_date: '5 days ago',
+			latest_major_action: 'referred'
 		}
 	];
 }
@@ -254,30 +253,44 @@ function makeFollowersArray() {
 	];
 }
 
-function makeExpectedThing(users, thing, reviews = []) {
-	const user = users.find(user => user.id === thing.user_id);
+// function makeExpectedThing(users, thing, reviews = []) {
+// 	const user = users.find(user => user.id === thing.user_id);
 
-	const thingReviews = reviews.filter(review => review.thing_id === thing.id);
+// 	const thingReviews = reviews.filter(review => review.thing_id === thing.id);
 
-	const number_of_reviews = thingReviews.length;
-	const average_review_rating = calculateAverageReviewRating(thingReviews);
+// 	const number_of_reviews = thingReviews.length;
+// 	const average_review_rating = calculateAverageReviewRating(thingReviews);
 
+// 	return {
+// 		id: thing.id,
+// 		image: thing.image,
+// 		title: thing.title,
+// 		content: thing.content,
+// 		date_created: thing.date_created,
+// 		number_of_reviews,
+// 		average_review_rating,
+// 		user: {
+// 			id: user.id,
+// 			user_name: user.user_name,
+// 			full_name: user.full_name,
+// 			date_created: user.date_created
+// 		}
+// 	};
+// }
+
+
+function makeExpectedBill(bills, expectedBill) {
+	const bill = bills.find(bill => expectedBill.bill_id === bill.bill_id)
+	// console.log('bill is ', bill);	
+	// console.log('expected bill is ', expectedBill);
 	return {
-		id: thing.id,
-		image: thing.image,
-		title: thing.title,
-		content: thing.content,
-		date_created: thing.date_created,
-		number_of_reviews,
-		average_review_rating,
-		user: {
-			id: user.id,
-			user_name: user.user_name,
-			full_name: user.full_name,
-			date_created: user.date_created
-		}
-	};
+		id: bill.bill_id,
+		title: bill.title,
+		sponsor_id: bill.sponsor_id,
+		summary: bill.summary
+	}
 }
+
 
 function makeCongressFixtures() {
 	const testUsers = makeUsersArray();
@@ -316,23 +329,25 @@ function seedUsers(db, users) {
 
 function seedCongressTables(
 	db,
-	brands = [],
-	ingredients = [],
-	foods = [],
+	members = [],
+	bills = [],
+	committees = [],
 	users = [],
-	ratings = []
+	followers = []
 ) {
 	return seedUsers(db, users)
-		.then(() => db.into('brands').insert(brands))
-		.then(() => db.into('ingredients').insert(ingredients))
-		.then(() => db.into('foods').insert(foods))
-		.then(() => db.into('ratings').insert(ratings));
+		.then(() => db.into('members').insert(members))
+		.then(() => db.into('bills').insert(bills))
+		.then(() => db.into('committees').insert(committees))
+		.then(() => db.into('followers').insert(followers));
 }
 
-function seedMaliciousThing(db, user, thing) {
-	return seedUsers(db, [user]).then(() =>
-		db.into('thingful_things').insert([thing])
-	);
+function seedBillsTable(db, bills = []) {
+	const preppedBills = bills.map(bill => ({
+		...bill
+	}));
+	// console.log('prepped bills for db insert: ', preppedBills)
+	return () => db.into('bills').insert(preppedBills);
 }
 
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
@@ -350,9 +365,10 @@ module.exports = {
 	makeCommitteesArray,
 	makeFollowersArray,
 	makeCongressFixtures,
+	makeExpectedBill,
 	cleanTables,
 	seedUsers,
 	seedCongressTables,
-	seedMaliciousThing,
+	seedBillsTable,
 	makeAuthHeader
 };

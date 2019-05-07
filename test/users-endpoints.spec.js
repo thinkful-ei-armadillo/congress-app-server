@@ -131,7 +131,7 @@ describe('Users Router Endpoints', () => {
     });
 
     context('Given a valid new user registration', () => {
-      it('responds 201, serialized user, storing bcryped password', () => {
+      it('responds 201, serialized user, storing bcrypted password', () => {
         const newUser = {
           user_name: 'test user_name',
           password: '11AAaa!!',
