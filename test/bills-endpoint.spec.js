@@ -29,22 +29,24 @@ describe('Bills Router Endpoints', () => {
 
     context('Given there are bills in the database', () => {
       beforeEach('insert bills', () =>
-        helpers.seedCongressTables(
+        helpers.seedBillsTable(
           db,
           testBills
         )
       );
 
       it('responds with 200 and all of the bills', () => {
-        const expectedBills = testBills.map(post =>
-          helpers.makeExpectedBills(
+        const expectedBills = testBills.map(bill =>
+          helpers.makeExpectedBill(
             testBills,
-            testBill
+            bill
           )
         );
+        console.log('expectedBills is ', expectedBills);
         return supertest(app)
           .get('/api/bills')
           .expect((res) => {
+            console.log(res.body);
             expect(res.body[0].id).to.equal(expectedBills[0].bill_id);
             expect(res.body[0].title).to.equal(expectedBills[0].title);
             expect(res.body[0].sponsor_id).to.equal(expectedBills[0].sponsor_id);

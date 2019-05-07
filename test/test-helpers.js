@@ -114,34 +114,6 @@ function makeMembersArray() {
 }
 
 function makeBillsArray() {
-	// fields to add:
-	// bill_id TEXT,
-  // bill_type TEXT,
-  // number TEXT,
-  // bill_uri TEXT,
-  // title TEXT,
-  // sponsor_id TEXT,
-  // sponsor_name TEXT,
-  // sponsor_state TEXT,
-  // sponsor_uri TEXT,
-  // gpo_pdf_uri TEXT,
-  // congressdotgov_url TEXT,
-  // govtrack_url TEXT,
-  // introduced_date TEXT,
-  // active BOOLEAN,
-  // house_passage TEXT,
-  // senate_passage TEXT,
-  // enacted TEXT,
-  // vetoed TEXT,
-  // cosponsors INTEGER,
-  // committees TEXT,
-  // committee_codes TEXT,
-  // subcommittee_codes TEXT,
-  // primary_subject TEXT,
-  // summary TEXT,
-  // summary_short TEXT,
-  // latest_major_action_date TEXT,
-  // latest_major_action TEXT
 	return [
 		{
 			bill_id: '1',
@@ -309,7 +281,8 @@ function makeExpectedThing(users, thing, reviews = []) {
 
 function makeExpectedBill(bills, expectedBill) {
 	const bill = bills.find(bill => expectedBill.bill_id === bill.bill_id)
-
+	// console.log('bill is ', bill);	
+	// console.log('expected bill is ', expectedBill);
 	return {
 		id: bill.bill_id,
 		title: bill.title,
@@ -369,10 +342,12 @@ function seedCongressTables(
 		.then(() => db.into('followers').insert(followers));
 }
 
-function seedMaliciousThing(db, user, thing) {
-	return seedUsers(db, [user]).then(() =>
-		db.into('thingful_things').insert([thing])
-	);
+function seedBillsTable(db, bills = []) {
+	const preppedBills = bills.map(bill => ({
+		...bill
+	}));
+	// console.log('prepped bills for db insert: ', preppedBills)
+	return () => db.into('bills').insert(preppedBills);
 }
 
 function makeAuthHeader(user, secret = process.env.JWT_SECRET) {
@@ -390,9 +365,10 @@ module.exports = {
 	makeCommitteesArray,
 	makeFollowersArray,
 	makeCongressFixtures,
+	makeExpectedBill,
 	cleanTables,
 	seedUsers,
 	seedCongressTables,
-	seedMaliciousThing,
+	seedBillsTable,
 	makeAuthHeader
 };
