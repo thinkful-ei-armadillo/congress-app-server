@@ -8,7 +8,7 @@ INSERT INTO "followers" (
   "member_id"
 )
 VALUES
-  (1,'A000374'),
-  (1, 'B001291');
+  (3,'A000374'),
+  (3, 'B001291');
 
 COMMIT;

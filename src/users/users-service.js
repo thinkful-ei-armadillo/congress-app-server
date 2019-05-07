@@ -63,9 +63,9 @@ const UsersService = {
 
   addFollowedMember(db, user_id, member_id) {
     return db
+      .returning('*')
       .insert({ user_id, member_id })
-      .into('followers')
-      .returning('*');
+      .into('followers');
   },
 
   removeFollowedMember(db, member_id) {
