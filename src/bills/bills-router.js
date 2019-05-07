@@ -28,6 +28,7 @@ billsRouter.route('/').get((req, res, next) => {
   } else {
     BillsService.getAllBills(req.app.get('db'))
       .then(bills => {
+        console.log('getallbills!');
         return res.json(BillsService.serializeBills(bills));
       })
       .catch(next);
