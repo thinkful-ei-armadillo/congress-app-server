@@ -253,30 +253,30 @@ function makeFollowersArray() {
 	];
 }
 
-function makeExpectedThing(users, thing, reviews = []) {
-	const user = users.find(user => user.id === thing.user_id);
+// function makeExpectedThing(users, thing, reviews = []) {
+// 	const user = users.find(user => user.id === thing.user_id);
 
-	const thingReviews = reviews.filter(review => review.thing_id === thing.id);
+// 	const thingReviews = reviews.filter(review => review.thing_id === thing.id);
 
-	const number_of_reviews = thingReviews.length;
-	const average_review_rating = calculateAverageReviewRating(thingReviews);
+// 	const number_of_reviews = thingReviews.length;
+// 	const average_review_rating = calculateAverageReviewRating(thingReviews);
 
-	return {
-		id: thing.id,
-		image: thing.image,
-		title: thing.title,
-		content: thing.content,
-		date_created: thing.date_created,
-		number_of_reviews,
-		average_review_rating,
-		user: {
-			id: user.id,
-			user_name: user.user_name,
-			full_name: user.full_name,
-			date_created: user.date_created
-		}
-	};
-}
+// 	return {
+// 		id: thing.id,
+// 		image: thing.image,
+// 		title: thing.title,
+// 		content: thing.content,
+// 		date_created: thing.date_created,
+// 		number_of_reviews,
+// 		average_review_rating,
+// 		user: {
+// 			id: user.id,
+// 			user_name: user.user_name,
+// 			full_name: user.full_name,
+// 			date_created: user.date_created
+// 		}
+// 	};
+// }
 
 
 function makeExpectedBill(bills, expectedBill) {

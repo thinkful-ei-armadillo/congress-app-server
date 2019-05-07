@@ -35,13 +35,13 @@ describe('Bills Router Endpoints', () => {
         )
       );
 
-      it('responds with 200 and all of the bills', () => {
-        const expectedBills = testBills.map(bill =>
-          helpers.makeExpectedBill(
-            testBills,
-            bill
-          )
-        );
+      // it('responds with 200 and all of the bills', () => {
+      //   const expectedBills = testBills.map(bill =>
+      //     helpers.makeExpectedBill(
+      //       testBills,
+      //       bill
+      //     )
+      //   );
         console.log('expectedBills is ', expectedBills);
         return supertest(app)
           .get('/api/bills')
