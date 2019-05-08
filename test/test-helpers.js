@@ -497,53 +497,29 @@ function makeCommitteesArray() {
 }
 
 function makeFollowersArray() {
-  //fields to add:
-  // user_id INTEGER
-  // member_id TEXT
-  return [
-    {
-      rating: "1",
-      foodid: 3
-    },
-    {
-      rating: "-1",
-      foodid: 4
-    },
-    {
-      rating: "-1",
-      foodid: 2
-    },
-    {
-      rating: "-1",
-      foodid: 1
-    }
-  ];
+	return [
+		{
+			user_id: 1,
+			member_id: 'K000394'
+		},
+		{
+			user_id: 1,
+			member_id: 'C001111'
+		},
+		{
+			user_id: 2,
+			member_id: 'R000307'
+		},
+		{
+			user_id: 2,
+			member_id: 'A000361'
+		}
+	];
 }
 
-// function makeExpectedThing(users, thing, reviews = []) {
-// 	const user = users.find(user => user.id === thing.user_id);
-
-// 	const thingReviews = reviews.filter(review => review.thing_id === thing.id);
-
-// 	const number_of_reviews = thingReviews.length;
-// 	const average_review_rating = calculateAverageReviewRating(thingReviews);
-
-// 	return {
-// 		id: thing.id,
-// 		image: thing.image,
-// 		title: thing.title,
-// 		content: thing.content,
-// 		date_created: thing.date_created,
-// 		number_of_reviews,
-// 		average_review_rating,
-// 		user: {
-// 			id: user.id,
-// 			user_name: user.user_name,
-// 			full_name: user.full_name,
-// 			date_created: user.date_created
-// 		}
-// 	};
-// }
+function seedFollowers(db, followers = []) {
+	return db.into('followers').insert(followers);
+}
 
 function makeExpectedBill(bills, expectedBill) {
   const bill = bills.find(bill => expectedBill.bill_id === bill.bill_id);
@@ -582,73 +558,12 @@ function makeExpectedTops(tops, expectedTops) {
 	return top3;
 }
 
-function makeTopsArray() {
-	// fields to add:
-	// id TEXT PRIMARY KEY,
-	// title TEXT,
-	// short_title TEXT,
-	// first_name TEXT,
-	// middle_name TEXT,
-	// last_name TEXT,
-	// suffix TEXT,
-	// date_of_birth TEXT,
-	// party TEXT,
-	// leadership_role TEXT,
-	// twitter_account TEXT,
-	// facebook_account TEXT,
-	// youtube_account TEXT,
-	// govtrack_id INTEGER,
-	// url TEXT,
-	// in_office BOOLEAN,
-	// seniority INTEGER,
-	// district TEXT DEFAULT NULL,
-	// committees TEXT DEFAULT NULL,
-	// next_election INTEGER,
-	// total_votes INTEGER,
-	// missed_votes INTEGER,
-	// total_present INTEGER, -- 'present' votes rather than yea or nay
-	// last_updated TEXT,
-	// office TEXT,
-	// phone TEXT,
-	// fax TEXT,
-	// state TEXT,
-	// senate_class INTEGER DEFAULT NULL,
-	// state_rank TEXT DEFAULT NULL,
-	// missed_votes_pct NUMERIC,
-	// votes_with_party_pct NUMERIC,
-	// type TEXT
-	
-	return [
-		{
-			id: 1,
-			missed_votes_pct: 90
-		},
-		{
-			id: 2,
-			missed_votes_pct: 10
-		},
-		{
-			id: 3,
-			missed_votes_pct: 30
-		},
-		{
-			id: 4,
-			missed_votes_pct: 15
-		},
-		{
-			id: 5,
-			missed_votes_pct: 84
-		}
-	]
-}
-
 function makeCongressFixtures() {
 	const testUsers = makeUsersArray();
 	const testMembers = makeMembersArray();
 	const testBills = makeBillsArray();
 	const testCommittees = makeCommitteesArray();
 	const testFollowers = makeFollowersArray();
-	const testTops = makeTopsArray();
 
 	return {
 		testUsers,
@@ -656,7 +571,6 @@ function makeCongressFixtures() {
 		testBills,
 		testCommittees,
 		testFollowers,
-		testTops
 	};
 }
 
@@ -723,5 +637,6 @@ module.exports = {
 	seedUsers,
 	seedCongressTables,
 	seedBillsTable,
+	seedFollowers,
 	makeAuthHeader
 };
