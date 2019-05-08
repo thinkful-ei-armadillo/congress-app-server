@@ -24,39 +24,39 @@ function makeUsersArray() {
 function makeMembersArray() {
 	// fields to add:
 	// id TEXT PRIMARY KEY,
-  // title TEXT,
-  // short_title TEXT,
-  // first_name TEXT,
-  // middle_name TEXT,
-  // last_name TEXT,
-  // suffix TEXT,
-  // date_of_birth TEXT,
-  // party TEXT,
-  // leadership_role TEXT,
-  // twitter_account TEXT,
-  // facebook_account TEXT,
-  // youtube_account TEXT,
-  // govtrack_id INTEGER,
-  // url TEXT,
-  // in_office BOOLEAN,
-  // seniority INTEGER,
-  // district TEXT DEFAULT NULL,
-  // committees TEXT DEFAULT NULL,
-  // next_election INTEGER,
-  // total_votes INTEGER,
-  // missed_votes INTEGER,
-  // total_present INTEGER, -- 'present' votes rather than yea or nay
-  // last_updated TEXT,
-  // office TEXT,
-  // phone TEXT,
-  // fax TEXT,
-  // state TEXT,
-  // senate_class INTEGER DEFAULT NULL,
-  // state_rank TEXT DEFAULT NULL,
-  // missed_votes_pct NUMERIC,
-  // votes_with_party_pct NUMERIC,
+	// title TEXT,
+	// short_title TEXT,
+	// first_name TEXT,
+	// middle_name TEXT,
+	// last_name TEXT,
+	// suffix TEXT,
+	// date_of_birth TEXT,
+	// party TEXT,
+	// leadership_role TEXT,
+	// twitter_account TEXT,
+	// facebook_account TEXT,
+	// youtube_account TEXT,
+	// govtrack_id INTEGER,
+	// url TEXT,
+	// in_office BOOLEAN,
+	// seniority INTEGER,
+	// district TEXT DEFAULT NULL,
+	// committees TEXT DEFAULT NULL,
+	// next_election INTEGER,
+	// total_votes INTEGER,
+	// missed_votes INTEGER,
+	// total_present INTEGER, -- 'present' votes rather than yea or nay
+	// last_updated TEXT,
+	// office TEXT,
+	// phone TEXT,
+	// fax TEXT,
+	// state TEXT,
+	// senate_class INTEGER DEFAULT NULL,
+	// state_rank TEXT DEFAULT NULL,
+	// missed_votes_pct NUMERIC,
+	// votes_with_party_pct NUMERIC,
 	// type TEXT
-	
+
 	return [
 		{
 			id: 1,
@@ -206,33 +206,111 @@ function makeBillsArray() {
 }
 
 function makeCommitteesArray() {
-	// fields to add:
-	// committee_id TEXT,
-  // committee_name TEXT,
-  // committee_chamber TEXT,
-  // committee_url TEXT,
-  // committee_chair TEXT,
-  // committee_chair_id TEXT
+	// length 12
 	return [
-		{ rating: 1, userid: 1, foodid: 1 },
-		{ rating: 1, userid: 1, foodid: 2 },
-		{ rating: -1, userid: 1, foodid: 3 },
-		{ rating: -1, userid: 1, foodid: 4 },
-		{ rating: -1, userid: 2, foodid: 1 },
-		{ rating: -1, userid: 2, foodid: 2 },
-		{ rating: 1, userid: 2, foodid: 3 },
-		{ rating: -1, userid: 2, foodid: 4 },
-		{ rating: -1, userid: 3, foodid: 1 },
-		{ rating: -1, userid: 3, foodid: 2 },
-		{ rating: 1, userid: 3, foodid: 3 },
-		{ rating: 1, userid: 3, foodid: 4 }
+		{
+			committee_id: 'SSAF',
+			committee_name: 'Committee on Agriculture, Nutrition, and Forestry',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.agriculture.senate.gov/',
+			committee_chair: 'Pat Roberts',
+			committee_chair_id: 'R000307'
+		},
+		{
+			committee_id: 'SSAP',
+			committee_name: 'Committee on Appropriations',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.appropriations.senate.gov/',
+			committee_chair: 'Richard Shelby',
+			committee_chair_id: 'S000320'
+		},
+		{
+			committee_id: 'SSAS',
+			committee_name: 'Committee on Armed Services',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.armed-services.senate.gov/',
+			committee_chair: 'James Inhofe',
+			committee_chair_id: 'I000024'
+		},
+		{
+			committee_id: 'SSBK',
+			committee_name: 'Committee on Banking, Housing, and Urban Affairs',
+			committee_chamber: 'Senate',
+			committee_url: 'http://banking.senate.gov/',
+			committee_chair: 'Michael Crapo',
+			committee_chair_id: 'C000880'
+		},
+		{
+			committee_id: 'SSCM',
+			committee_name: 'Committee on Commerce, Science, and Transportation',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.commerce.senate.gov/',
+			committee_chair: 'Roger Wicker',
+			committee_chair_id: 'W000437'
+		},
+		{
+			committee_id: 'SSEG',
+			committee_name: 'Committee on Energy and Natural Resources',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.energy.senate.gov/',
+			committee_chair: 'Lisa Murkowski',
+			committee_chair_id: 'M001153'
+		},
+		{
+			committee_id: 'SSFI',
+			committee_name: 'Committee on Finance',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.finance.senate.gov/',
+			committee_chair: 'Charles Grassley',
+			committee_chair_id: 'G000386'
+		},
+		{
+			committee_id: 'SSEV',
+			committee_name: 'Committee on Environment and Public Works',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.epw.senate.gov/',
+			committee_chair: 'John Barrasso',
+			committee_chair_id: 'B001261'
+		},
+		{
+			committee_id: 'SSFR',
+			committee_name: 'Committee on Foreign Relations',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.foreign.senate.gov/',
+			committee_chair: 'Jim Risch',
+			committee_chair_id: 'R000584'
+		},
+		{
+			committee_id: 'SSHR',
+			committee_name: 'Committee on Health, Education, Labor, and Pensions',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.help.senate.gov/',
+			committee_chair: 'Lamar Alexander',
+			committee_chair_id: 'A000360'
+		},
+		{
+			committee_id: 'SSGA',
+			committee_name: 'Committee on Homeland Security and Governmental Affairs',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.hsgac.senate.gov/',
+			committee_chair: 'Ron Johnson',
+			committee_chair_id: 'J000293'
+		},
+		{
+			committee_id: 'SLIA',
+			committee_name: 'Committee on Indian Affairs',
+			committee_chamber: 'Senate',
+			committee_url: 'http://www.indian.senate.gov/',
+			committee_chair: 'John Hoeven',
+			committee_chair_id: 'H001061'
+		}
 	];
 }
 
 function makeFollowersArray() {
 	//fields to add:
-	// user_id INTEGER 
-	// member_id TEXT 
+	// user_id INTEGER
+	// member_id TEXT
 	return [
 		{
 			rating: '1',
@@ -278,19 +356,35 @@ function makeFollowersArray() {
 // 	};
 // }
 
-
 function makeExpectedBill(bills, expectedBill) {
-	const bill = bills.find(bill => expectedBill.bill_id === bill.bill_id)
-	// console.log('bill is ', bill);	
+	const bill = bills.find(bill => expectedBill.bill_id === bill.bill_id);
+	// console.log('bill is ', bill);
 	// console.log('expected bill is ', expectedBill);
 	return {
 		id: bill.bill_id,
 		title: bill.title,
 		sponsor_id: bill.sponsor_id,
 		summary: bill.summary
-	}
+	};
 }
+//        committee_id: 'SSAF',
+// 				committee_name: 'Committee on Agriculture, Nutrition, and Forestry',
+// 				committee_chamber: 'Senate',
+// 				committee_url: 'http://www.agriculture.senate.gov/',
+// 				member: {
+function makeExpectedCommittee(committees, expectedCommittee) {
+	const committee = committees.find(
+		committee => committee.committee_id === expectedCommittee.committee_id
+	);
 
+	return {
+		id: committee.committee_id,
+		name: committee.name,
+		chamber: committee.chamber,
+		url: committee.url,
+		member: committee.member
+	};
+}
 
 function makeCongressFixtures() {
 	const testUsers = makeUsersArray();
@@ -311,11 +405,11 @@ function makeCongressFixtures() {
 function cleanTables(db) {
 	return db.raw(
 		`TRUNCATE
-			bills,
-			committees,
-			followers,
-			members,
-			users;`
+		bills,
+		committees,
+		followers,
+		members,
+		users;`
 	);
 }
 
