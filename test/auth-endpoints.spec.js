@@ -23,7 +23,7 @@ describe('Auth Router Endpoints', () => {
 
   before('cleanup', () => helpers.cleanTables(db));
 
-  afterEach('cleanup', () => helpers.cleanTables(db));
+  // afterEach('cleanup', () => helpers.cleanTables(db));
 
   describe('POST /auth/login', () => {
 

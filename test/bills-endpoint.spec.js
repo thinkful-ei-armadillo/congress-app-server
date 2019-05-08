@@ -22,7 +22,6 @@ describe('Bills Router Endpoints', () => {
         return supertest(app)
           .get('/api/bills/:id')
           .expect((res) => {
-            console.log(res.status);
             expect(res.status).to.equal(404);
           });
       });
@@ -46,11 +45,9 @@ describe('Bills Router Endpoints', () => {
             bill
           )
         );
-        console.log('expectedBills is ', expectedBills);
         return supertest(app)
           .get('/api/bills')
           .expect(res => {
-            console.log(res.body);
             expect(res.body[0].id).to.equal(expectedBills[0].bill_id);
             // expect(res.body[0].title).to.equal(expectedBills[0].title);
             // expect(res.body[0].sponsor_id).to.equal(expectedBills[0].sponsor_id);
