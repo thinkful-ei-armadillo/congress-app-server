@@ -8,8 +8,8 @@ const { expect } = require('chai');
 describe('Top 3 Router Endpoints', () => {
   let db;
 
-  // const { testTops } = helpers.makeCongressFixtures();
-  // const testTop = testTops[0];
+  const { testTops } = helpers.makeCongressFixtures();
+  const testTop = testTops[0];
 
   describe('GET /top3s', () => {
 
@@ -37,18 +37,16 @@ describe('Top 3 Router Endpoints', () => {
     context('Given there are top3s in the database', () => {
 
       it('responds with 200 and all of the top3s', () => {
-        const expectedTop3s = testTops.map(top =>
-          helpers.makeExpectedTops(
-            testTops,
-            top
-          )
+        const expectedTop3s = helpers.makeExpectedTops(
+          testTops,
+          testTop
         );
-        console.log('expectedTop3ss is ', expectedTop3s);
+        
         return supertest(app)
           .get('/api/top3s')
           .expect(res => {
             console.log(res.body);
-            expect(res.body[0].id).to.equal(expectedTop3s[0].id);
+            expect(res.body.length).to.equal(3);
           });
       });
     });
