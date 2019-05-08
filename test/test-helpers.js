@@ -22,40 +22,6 @@ function makeUsersArray() {
 }
 
 function makeMembersArray() {
-  // fields to add:
-  // id TEXT PRIMARY KEY,
-  // title TEXT,
-  // short_title TEXT,
-  // first_name TEXT,
-  // middle_name TEXT,
-  // last_name TEXT,
-  // suffix TEXT,
-  // date_of_birth TEXT,
-  // party TEXT,
-  // leadership_role TEXT,
-  // twitter_account TEXT,
-  // facebook_account TEXT,
-  // youtube_account TEXT,
-  // govtrack_id INTEGER,
-  // url TEXT,
-  // in_office BOOLEAN,
-  // seniority INTEGER,
-  // district TEXT DEFAULT NULL,
-  // committees TEXT DEFAULT NULL,
-  // next_election INTEGER,
-  // total_votes INTEGER,
-  // missed_votes INTEGER,
-  // total_present INTEGER, -- 'present' votes rather than yea or nay
-  // last_updated TEXT,
-  // office TEXT,
-  // phone TEXT,
-  // fax TEXT,
-  // state TEXT,
-  // senate_class INTEGER DEFAULT NULL,
-  // state_rank TEXT DEFAULT NULL,
-  // missed_votes_pct NUMERIC,
-  // votes_with_party_pct NUMERIC,
-  // type TEXT
 
   return [
     // length 6
@@ -523,8 +489,7 @@ function seedFollowers(db, followers = []) {
 
 function makeExpectedBill(bills, expectedBill) {
   const bill = bills.find(bill => expectedBill.bill_id === bill.bill_id);
-  // console.log('bill is ', bill);
-  // console.log('expected bill is ', expectedBill);
+
   return {
     id: bill.bill_id,
     title: bill.title,
@@ -532,11 +497,7 @@ function makeExpectedBill(bills, expectedBill) {
     summary: bill.summary
   };
 }
-//        committee_id: 'SSAF',
-// 				committee_name: 'Committee on Agriculture, Nutrition, and Forestry',
-// 				committee_chamber: 'Senate',
-// 				committee_url: 'http://www.agriculture.senate.gov/',
-// 				member: {
+
 function makeExpectedCommittee(committees, expectedCommittee) {
   const committee = committees.find(
     committee => committee.committee_id === expectedCommittee.committee_id
@@ -612,7 +573,6 @@ function seedBillsTable(db, bills = []) {
   const preppedBills = bills.map(bill => ({
     ...bill
   }));
-  // console.log('prepped bills for db insert: ', preppedBills)
   return () => db.into("bills").insert(preppedBills);
 }
 
