@@ -387,7 +387,7 @@ function makeExpectedCommittee(committees, expectedCommittee) {
 }
 
 function makeExpectedTops(tops, expectedTops) {
-	const top3 = tops.sort();
+	let top3 = tops.sort();
 	top3 = top3.splice(0, 3);
 
 	return top3;
@@ -431,7 +431,24 @@ function makeTopsArray() {
 	
 	return [
 		{
-			
+			id: 1,
+			missed_votes_pct: 90
+		},
+		{
+			id: 2,
+			missed_votes_pct: 10
+		},
+		{
+			id: 3,
+			missed_votes_pct: 30
+		},
+		{
+			id: 4,
+			missed_votes_pct: 15
+		},
+		{
+			id: 5,
+			missed_votes_pct: 84
 		}
 	]
 }
