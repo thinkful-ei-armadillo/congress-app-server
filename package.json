@@ -11,7 +11,7 @@
 		"migrate-production": "postgrator --config postgrator-production-config.js",
 		"start": "node src/server.js",
 		"predeploy": "npm audit && npm run migrate-production",
-		"deploy": "git push heroku deploy:master"
+		"deploy": "git push heroku master"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
