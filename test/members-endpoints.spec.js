@@ -5,7 +5,7 @@ const knex = require("knex");
 const { expect } = require("chai");
 const supertest = require("supertest");
 
-describe.only("Members Router Endpoints", () => {
+describe("Members Router Endpoints", () => {
   let db;
 
   // const { testMembers } = helpers.makeCongressFixtures();

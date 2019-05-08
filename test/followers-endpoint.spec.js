@@ -24,13 +24,13 @@ describe('Followers Endpoint', () => {
           });
       });
     });
-  
+
 
 
     before('make knex instance', () => {
       db = knex({
         client: 'pg',
-        connection: process.env.TEST_DB_URL
+        connection: process.env.TEST_DB_URL_DOS
       });
       app.set('db', db);
     });
@@ -41,12 +41,12 @@ describe('Followers Endpoint', () => {
     // INSERT INTO followers (user_id, member_id) VALUES (1, 'K000394'), (1, 'C001111'), (2, 'R000307'), (2, 'A000361');
 
     context('Given a valid list of followers in database', () => {
-      
+
       beforeEach('insert followers', () => helpers.seedFollowers(db, testFollowers));
 
 
       it('responds with 200 and all of the followed members', () => {
-  
+
         return supertest(app)
           .get('/api/1/followers'),
         expect(res => {
