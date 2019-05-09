@@ -11,7 +11,6 @@ const billsRouter = express.Router();
 billsRouter.route('/').get((req, res, next) => {
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
-  console.log(query.filter);
 
   if (query.filter === 'active') {
     BillsService.getActiveBills(req.app.get('db'))
@@ -28,7 +27,6 @@ billsRouter.route('/').get((req, res, next) => {
   } else {
     BillsService.getAllBills(req.app.get('db'))
       .then(bills => {
-        console.log('getallbills!');
         return res.json(BillsService.serializeBills(bills));
       })
       .catch(next);
@@ -37,7 +35,6 @@ billsRouter.route('/').get((req, res, next) => {
 
 // seeding the bills in db
 billsRouter.route('/seedBills').get(async (req, res, next) => {
-  console.log('hello from seedBills route!');
   try {
     await Promise.all([
       requestPromise({

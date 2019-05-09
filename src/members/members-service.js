@@ -20,7 +20,6 @@ const MembersService = {
   },
 
   seedMembers(db) {
-    console.log('hello from seedMembers route!');
     Promise.all([
       requestPromise({
         method: 'GET',

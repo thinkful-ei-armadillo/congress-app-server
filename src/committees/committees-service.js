@@ -17,7 +17,7 @@ const CommitteesService = {
 
 	async seedCommittees(db) {
 		try {
-			console.log('hello from seedCommittees');
+		
 			await Promise.all([
 				requestPromise({
 					method: 'GET',

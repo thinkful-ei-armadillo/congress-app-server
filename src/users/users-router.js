@@ -63,8 +63,7 @@ usersRouter
 
       UsersService.addFollowedMember(req.app.get('db'), userID, memberID).then(
         (response) => {
-          console.log('text')
-          return res.status(201).send(response)
+          return res.status(201).send(response);
         }
       );
     } catch (e) {
@@ -85,7 +84,6 @@ usersRouter.route('/:id/favorites').get((req, res, next) => {
     const id = req.params.id;
 
     UsersService.getFollowedMembersId(req.app.get('db'), id).then(members => {
-      console.log(members);
       res.json(members);
     });
   } catch (e) {

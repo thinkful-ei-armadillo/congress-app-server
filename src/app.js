@@ -51,10 +51,9 @@ app.use("/api/committees", committeesRouter);
 
 // 4/24 "cannot read property pipescount of undefined"
 // let refreshMembers = cron.schedule('*/1 * * * *', () => {
-//   console.log('cron running');
 
 //   app.runMiddleware('/api/members/seedMembers', function(code, body, headers) {
-//     console.log('members response', body);
+//     console.log('seedMembers response', body);
 //   });
 // });
 

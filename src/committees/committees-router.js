@@ -18,7 +18,7 @@ committeesRouter.route("/").get((req, res, next) => {
 
 // seeding the committees in db
 committeesRouter.route("/seedCommittees").get(async (req, res, next) => {
-  console.log("hello from seedCommittees route!");
+
   try {
     await Promise.all([
       requestPromise({

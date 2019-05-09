@@ -19,7 +19,6 @@ describe('Followers Endpoint', () => {
         return supertest(app)
           .get('/api/1/followers')
           .expect((res) => {
-            console.log(res.status);
             expect(res.status).to.equal(404);
           });
       });
@@ -49,7 +48,6 @@ describe('Followers Endpoint', () => {
         return supertest(app)
           .get('/api/1/followers'),
         expect(res => {
-          console.log(res.body, 'hello there');
           expect(res.body.length).to.equal(testFollower.length);
         });
       });
