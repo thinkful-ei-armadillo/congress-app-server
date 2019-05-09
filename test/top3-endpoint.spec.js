@@ -5,8 +5,6 @@ const knex = require('knex');
 const supertest = require('supertest');
 const { expect } = require('chai');
 
-// INSERT INTO members (id, missed_votes_pct) VALUES ('1', 80), ('2',99), ('3',90);
-
 describe('Top 3 Router Endpoints', () => {
   let db;
 

@@ -6,7 +6,6 @@ describe('Committees Router Endpoints', () => {
   let db;
 
   const { testCommittees } = helpers.makeCongressFixtures();
-  // const testCommittee = testCommittees[0];
 
   before('make knex instance', () => {
     db = knex({

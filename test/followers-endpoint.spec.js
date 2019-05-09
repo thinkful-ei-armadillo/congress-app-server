@@ -38,7 +38,6 @@ describe('Followers Endpoint', () => {
     after('disconnect from db', () => db.destroy());
 
     before('cleanup', () => helpers.cleanTables(db));
-    // INSERT INTO followers (user_id, member_id) VALUES (1, 'K000394'), (1, 'C001111'), (2, 'R000307'), (2, 'A000361');
 
     context('Given a valid list of followers in database', () => {
 

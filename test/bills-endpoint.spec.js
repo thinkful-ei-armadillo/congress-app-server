@@ -49,9 +49,6 @@ describe('Bills Router Endpoints', () => {
           .get('/api/bills')
           .expect(res => {
             expect(res.body[0].id).to.equal(expectedBills[0].bill_id);
-            // expect(res.body[0].title).to.equal(expectedBills[0].title);
-            // expect(res.body[0].sponsor_id).to.equal(expectedBills[0].sponsor_id);
-            // expect(res.body[0].summary).to.equal(expectedBills[0].summary);
           });
       });
     });

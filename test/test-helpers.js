@@ -24,7 +24,6 @@ function makeUsersArray() {
 function makeMembersArray() {
 
   return [
-    // length 6
     {
       id: 1,
       title: "someText",
@@ -57,13 +56,7 @@ function makeMembersArray() {
       state_rank: "1",
       missed_votes_pct: 0,
       votes_with_party_pct: 100,
-      type: "someType",
-      // committee_id: "someId",
-      // committee_name: "someName",
-      // committee_chamber: "someChamber",
-      // committee_url: "someUrl",
-      // committee_chair: "someChair",
-      // committee_chair_id: "someChairId"
+      type: "someType"
     },
     {
       id: 2,
@@ -97,13 +90,7 @@ function makeMembersArray() {
       state_rank: "1",
       missed_votes_pct: 0,
       votes_with_party_pct: 100,
-      type: "someType",
-      // committee_id: "someId",
-      // committee_name: "someName",
-      // committee_chamber: "someChamber",
-      // committee_url: "someUrl",
-      // committee_chair: "someChair",
-      // committee_chair_id: "someChairId"
+      type: "someType"
     },
     {
       id: 3,
@@ -137,13 +124,7 @@ function makeMembersArray() {
       state_rank: "1",
       missed_votes_pct: 0,
       votes_with_party_pct: 100,
-      type: "someType",
-      // committee_id: "someId",
-      // committee_name: "someName",
-      // committee_chamber: "someChamber",
-      // committee_url: "someUrl",
-      // committee_chair: "someChair",
-      // committee_chair_id: "someChairId"
+      type: "someType"
     },
     {
       id: 4,
@@ -177,13 +158,7 @@ function makeMembersArray() {
       state_rank: "1",
       missed_votes_pct: 0,
       votes_with_party_pct: 100,
-      type: "someType",
-      // committee_id: "someId",
-      // committee_name: "someName",
-      // committee_chamber: "someChamber",
-      // committee_url: "someUrl",
-      // committee_chair: "someChair",
-      // committee_chair_id: "someChairId"
+      type: "someType"
     },
     {
       id: 5,
@@ -217,13 +192,7 @@ function makeMembersArray() {
       state_rank: "1",
       missed_votes_pct: 0,
       votes_with_party_pct: 100,
-      type: "someType",
-      // committee_id: "someId",
-      // committee_name: "someName",
-      // committee_chamber: "someChamber",
-      // committee_url: "someUrl",
-      // committee_chair: "someChair",
-      // committee_chair_id: "someChairId"
+      type: "someType"
     },
     {
       id: 6,
@@ -257,13 +226,7 @@ function makeMembersArray() {
       state_rank: "1",
       missed_votes_pct: 0,
       votes_with_party_pct: 100,
-      type: "someType",
-      // committee_id: "someId",
-      // committee_name: "someName",
-      // committee_chamber: "someChamber",
-      // committee_url: "someUrl",
-      // committee_chair: "someChair",
-      // committee_chair_id: "someChairId"
+      type: "someType"
     }
   ];
 }
@@ -361,7 +324,6 @@ function makeBillsArray() {
 }
 
 function makeCommitteesArray() {
-  // length 12
   return [
     {
       committee_id: "SSAF",

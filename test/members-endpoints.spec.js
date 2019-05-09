@@ -6,7 +6,7 @@ describe.only('Members Router Endpoints', () => {
   let db;
 
   const { testMembers } = helpers.makeCongressFixtures();
-  // const testMember = testMembers[0];
+
   before('make knex instance', () => {
     db = knex({
       client: 'pg',

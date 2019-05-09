@@ -99,7 +99,6 @@ const MembersService = {
   getAllMembers(db) {
     return db.select('*')
     .from('members')
-    // .leftJoin('committees', 'committee_chair_id', '=', 'members.id');
   },
   getMembersByState(db, state) {
     return db
@@ -140,8 +139,6 @@ const MembersService = {
       url: memberData.url,
       in_office: memberData.in_office,
       seniority: memberData.seniority,
-      // district: memberData.district,
-      // committees: memberData.committees,
       next_election: memberData.next_election,
       total_votes: memberData.total_votes,
       missed_votes: memberData.total_votes,
@@ -151,8 +148,6 @@ const MembersService = {
       phone: memberData.phone,
       fax: memberData.fax,
       state: memberData.state,
-      // senate_class: memberData.senate_class,
-      // state_rank: memberData.state_rank,
       missed_votes_pct: memberData.missed_votes_pct,
       votes_with_party_pct: memberData.votes_with_party_pct
     };
