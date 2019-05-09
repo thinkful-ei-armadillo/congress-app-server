@@ -80,7 +80,6 @@ membersRouter.route('/search').get((req, res, next) => {
 	var query = url_parts.query;
 
 	if (Object.keys(query).length > 0) {
-		console.log(query.query);
 		if (query.query === undefined) {
 			query.query = '';
 		}
