@@ -36,31 +36,9 @@ billsRouter.route('/').get((req, res, next) => {
 // seeding the bills in db
 billsRouter.route('/seedBills').get(async (req, res, next) => {
   try {
-    await Promise.all([
-      requestPromise({
-        method: 'GET',
-        uri: `${PROPUBLICA_API}/116/house/bills/introduced.json`,
-        json: true,
-        headers: {
-          'X-API-Key': PROPUBLICA_APIKEY
-        },
-        rejectUnauthorized: false
-      }).then(data => {
-        if (!data) {
-          const message = 'No Data';
-          console.error(message);
-          return res.status(404).send(message);
-        }
-
-        BillsService.updateBills(req.app.get('db'), data.results[0].bills).then(
-          result => {
-            console.log('completed');
-          }
-        );
-      })
-    ]).then(data => {
-      return res.sendStatus(200);
-    });
+    await BillsService.seedBills(req.app.get('db'));
+    console.log('nice')
+    res.send('OK')
   } catch (e) {
     next(e);
   }
