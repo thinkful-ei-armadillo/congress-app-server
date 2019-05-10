@@ -112,7 +112,7 @@ const CommitteesService = {
 	serializeCommittee(committee) {
 		const committeeTree = new Treeize();
 		const committeeData = committeeTree.grow([committee]).getData()[0];
-
+		
 		return {
 			committee_id: committeeData.committee_id,
 			committee_name: committeeData.committee_name,
