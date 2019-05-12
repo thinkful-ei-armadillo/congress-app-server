@@ -3,7 +3,7 @@
 </p>
 <hr>
 
-For an example of how to implement this API in a front end client, please visit the [Client Repository](https://github.com/thinkful-ei-armadillo/congress-app-client
+For an example of how to implement this API in a front end client, please visit the [Client Repository](https://github.com/thinkful-ei-armadillo/congress-app-client)
 
 ## Endpoints
 
